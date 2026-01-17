@@ -1,0 +1,48 @@
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\SoftDeletes;
+
+class Tenant extends Model
+{
+    use HasFactory, SoftDeletes;
+
+    protected $fillable = [
+        'name',
+        'domain',
+        'slug',
+        'plan_id',
+        'status',
+        'trial_ends_at',
+        'facebook_page_id',
+        'facebook_access_token',
+        'facebook_webhook_verify_token',
+        'whatsapp_phone_number_id',
+        'settings',
+    ];
+
+    protected $casts = [
+        'settings' => 'array',
+        'trial_ends_at' => 'date',
+    ];
+
+    public function plan(): BelongsTo
+    {
+        return $this->belongsTo(Plan::class);
+    }
+
+    public function users(): HasMany
+    {
+        return $this->hasMany(User::class);
+    }
+
+    public function leads(): HasMany
+    {
+        return $this->hasMany(\App\Domain\Lead\Models\Lead::class);
+    }
+}

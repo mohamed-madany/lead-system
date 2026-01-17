@@ -15,9 +15,15 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Lead extends Model
 {
-    use HasFactory, SoftDeletes;
+    use HasFactory, SoftDeletes, \App\Traits\BelongsToTenant;
+    
+    protected static function newFactory()
+    {
+        return \Database\Factories\LeadFactory::new();
+    }
 
     protected $fillable = [
+        'tenant_id',
         'name',
         'email',
         'phone',

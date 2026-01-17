@@ -8,12 +8,13 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class LeadInteraction extends Model
 {
-    use HasFactory;
+    use HasFactory, \App\Traits\BelongsToTenant;
     
-    public $timestamps = false; // Only created_at
+    public $timestamps = true;
     const UPDATED_AT = null;
     
     protected $fillable = [
+        'tenant_id',
         'lead_id',
         'interaction_type',
         'interaction_data',

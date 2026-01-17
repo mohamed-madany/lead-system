@@ -11,6 +11,7 @@ class LeadData
         public readonly string $name,
         public readonly string $email,
         public readonly string $phone,
+        public readonly ?int $tenant_id = null,
         public readonly ?string $company_name = null,
         public readonly ?string $job_title = null,
         public readonly ?string $notes = null,
@@ -28,6 +29,7 @@ class LeadData
             name: $data['name'],
             email: $data['email'],
             phone: $data['phone'],
+            tenant_id: $data['tenant_id'] ?? null,
             company_name: $data['company_name'] ?? null,
             job_title: $data['job_title'] ?? null,
             notes: $data['notes'] ?? null,
@@ -43,6 +45,7 @@ class LeadData
     public function toArray(): array
     {
         return array_filter([
+            'tenant_id' => $this->tenant_id,
             'name' => $this->name,
             'email' => $this->email,
             'phone' => $this->phone,

@@ -10,11 +10,12 @@ use App\Models\User;
 
 class LeadActivity extends Model
 {
-    use HasFactory;
+    use HasFactory, \App\Traits\BelongsToTenant;
     
     public $timestamps = true;
     
     protected $fillable = [
+        'tenant_id',
         'lead_id',
         'user_id',
         'activity_type',

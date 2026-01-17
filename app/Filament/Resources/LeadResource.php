@@ -442,7 +442,7 @@ class LeadResource extends Resource
     {
         $query = parent::getEloquentQuery();
 
-        if (auth()->user()->hasRole(['admin', 'manager'])) {
+        if (auth()->check() && auth()->user()->hasRole(['admin', 'manager'])) {
             return $query;
         }
 

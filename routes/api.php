@@ -11,3 +11,6 @@ Route::get('/user', function (Request $request) {
 // Configuration for webhooks
 Route::match(['get', 'post'], '/webhooks/facebook', [WebhookController::class, 'facebook']);
 Route::match(['get', 'post'], '/webhooks/whatsapp', [WebhookController::class, 'whatsapp']);
+
+// Per-tenant unique webhooks
+Route::match(['get', 'post'], '/webhooks/{tenant}', [WebhookController::class, 'facebook']);

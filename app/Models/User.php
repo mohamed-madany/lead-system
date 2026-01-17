@@ -2,42 +2,43 @@
 
 namespace App\Models;
 
-// use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Filament\Models\Contracts\FilamentUser;
+use Filament\Models\Contracts\HasTenants;
 use Filament\Panel;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Relations\HasMany;
-use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Spatie\Permission\Traits\HasRoles;
+use Illuminate\Support\Collection;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Model;
+use App\Domain\Lead\Models\Lead;
+use App\Domain\Lead\Models\LeadActivity;
 
-class User extends Authenticatable implements FilamentUser
+class User extends Authenticatable implements FilamentUser, HasTenants
 {
-    /** @use HasFactory<\Database\Factories\UserFactory> */
-    use HasFactory, HasRoles, Notifiable, SoftDeletes;
+    use HasFactory, Notifiable, HasRoles;
 
     /**
      * The attributes that are mass assignable.
      *
-     * @var list<string>
+     * @var array<int, string>
      */
     protected $fillable = [
         'name',
         'email',
         'password',
-        'phone',
+        'tenant_id',
         'role',
-        'is_active',
-        'avatar_url',
-        'settings',
+        'is_platform_admin',
         'last_login_at',
     ];
 
     /**
      * The attributes that should be hidden for serialization.
      *
-     * @var list<string>
+     * @var array<int, string>
      */
     protected $hidden = [
         'password',
@@ -45,111 +46,83 @@ class User extends Authenticatable implements FilamentUser
     ];
 
     /**
-     * Get the attributes that should be cast.
+     * The attributes that should be cast.
      *
-     * @return array<string, string>
+     * @var array<string, string>
      */
-    protected function casts(): array
-    {
-        return [
-            'email_verified_at' => 'datetime',
-            'password' => 'hashed',
-            'is_active' => 'boolean',
-            'last_login_at' => 'datetime',
-            'settings' => 'array',
-        ];
-    }
-
-    // ==================== Filament Panel Access ====================
+    protected $casts = [
+        'email_verified_at' => 'datetime',
+        'password' => 'hashed',
+        'is_platform_admin' => 'boolean',
+        'last_login_at' => 'datetime',
+    ];
 
     /**
-     * Determine if user can access Filament panel
+     * Check if the user can access a specific Filament panel.
      */
     public function canAccessPanel(Panel $panel): bool
     {
-        return $this->is_active && in_array($this->role, ['admin', 'manager', 'user', 'sales']);
+        if ($panel->getId() === 'app') {
+            return $this->is_platform_admin === true;
+        }
+
+        if ($panel->getId() === 'admin') {
+            return true; 
+        }
+
+        return false;
     }
 
-    // ==================== Relationships ====================
-
     /**
-     * User has many assigned leads
+     * Get the tenant the user belongs to.
      */
-    public function assignedLeads(): HasMany
+    public function tenant(): BelongsTo
     {
-        return $this->hasMany(\App\Domain\Lead\Models\Lead::class, 'assigned_to');
+        return $this->belongsTo(Tenant::class);
     }
 
-    /**
-     * User has many activities
-     */
-    public function activities(): HasMany
+    public function getTenants(Panel $panel): array|Collection
     {
-        return $this->hasMany(\App\Domain\Lead\Models\LeadActivity::class);
+        return $this->tenant ? collect([$this->tenant]) : collect();
     }
 
-    // ==================== Helper Methods ====================
+    public function canAccessTenant(Model $tenant): bool
+    {
+        return (int)$this->tenant_id === (int)$tenant->id;
+    }
 
-    /**
-     * Check if user is admin
-     */
     public function isAdmin(): bool
     {
-        return $this->role === 'admin';
+        return $this->role === 'admin' || $this->is_platform_admin;
     }
 
-    /**
-     * Check if user is manager
-     */
     public function isManager(): bool
     {
         return $this->role === 'manager';
     }
 
-    /**
-     * Update last login timestamp
-     */
     public function updateLastLogin(): void
     {
-        $this->update(['last_login_at' => now()]);
+        $this->last_login_at = now();
+        $this->save();
     }
 
-    /**
-     * Get user's initials for avatar
-     */
     public function getInitialsAttribute(): string
     {
         $words = explode(' ', $this->name);
         if (count($words) >= 2) {
             return strtoupper(substr($words[0], 0, 1).substr($words[1], 0, 1));
         }
-
         return strtoupper(substr($this->name, 0, 2));
     }
 
-    // ==================== Query Scopes ====================
-
-    /**
-     * Scope to get active users
-     */
-    public function scopeActive($query)
+    public function leads(): HasMany
     {
-        return $query->where('is_active', true);
+        return $this->hasMany(Lead::class, 'assigned_to');
     }
 
-    /**
-     * Scope to get admins
-     */
-    public function scopeAdmins($query)
+    public function activities(): HasMany
     {
-        return $query->where('role', 'admin');
-    }
-
-    /**
-     * Scope to get managers
-     */
-    public function scopeManagers($query)
-    {
-        return $query->where('role', 'manager');
+        return $this->hasMany(LeadActivity::class, 'user_id');
     }
 }

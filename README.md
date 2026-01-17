@@ -1,59 +1,83 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# نظام إدارة العملاء المحتملين (Lead Management System) 🚀
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+[![Laravel Version](https://img.shields.io/badge/Laravel-12.x-red.svg)](https://laravel.com)
+[![Filament Version](https://img.shields.io/badge/Filament-5.x-yellow.svg)](https://filamentphp.com)
+[![PHP Version](https://img.shields.io/badge/PHP-8.4%2B-blue.svg)](https://php.net)
 
-## About Laravel
+نظام سحابي (SaaS) متكامل ومطور بأحدث تقنيات Laravel و Filament، مصمم لمساعدة الشركات والمراكز الطبية والعقارية على تنظيم متابعة العملاء المحتملين القادمين من مختلف المصادر (فيسبوك، واتساب، الموقع الإلكتروني) لضمان عدم ضياع أي فرصة بيع.
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+## ✨ المميزات الرئيسية
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+- **نظام تصنيف ذكي (Lead Scoring):** تقييم تلقائي لجودة العميل بناءً على البيانات المقدمة (شركة، بريد رسمي، رقم هاتف، إلخ).
+- **تعدد المصادر:** استقبال تلقائي للعملاء من نماذج الموقع، إعلانات فيسبوك، أو الربط عبر API.
+- **إدارة المبيعات (CRM):** لوحة تحكم لتوزيع العملاء على فريق المبيعات وتتبع حالة كل عميل (جديد، مؤهل، تم الإغلاق).
+- **تعدد الشركات (Multi-tenancy):** هيكل برمجى متطور يسمح باستضافة آلاف الشركات بشكل معزول تماماً.
+- **واجهة عصرية:** تصميم "Premium" يدعم اللغة العربية بالكامل وبروح عصرية تسهل تجربة المستخدم.
+- **تقارير دورية:** ملخصات يومية وأسبوعية لأداء فريق المبيعات ونسب التحويل.
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+## 🛠 التقنيات المستخدمة
 
-## Learning Laravel
+- **Framework:** Laravel 12
+- **Admin Panel:** Filament 5 (TALL Stack)
+- **Database:** PostgreSQL / MySQL
+- **Automation:** Integration with N8n for workflow automation.
+- **State Management:** Livewire 4 & Alpine.js
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework. You can also check out [Laravel Learn](https://laravel.com/learn), where you will be guided through building a modern Laravel application.
+## 🚀 التشغيل السريع
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+### المتطلبات
 
-## Laravel Sponsors
+- PHP 8.4+
+- Composer
+- Node.js & NPM
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+### خطوات التثبيت
 
-### Premium Partners
+1. قم بتحميل المشروع:
 
-- **[Vehikl](https://vehikl.com)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Redberry](https://redberry.international/laravel-development)**
-- **[Active Logic](https://activelogic.com)**
+    ```bash
+    git clone [repository-url]
+    cd lead-system
+    ```
 
-## Contributing
+2. تثبيت المكتبات البرمجية:
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+    ```bash
+    composer install
+    npm install
+    ```
 
-## Code of Conduct
+3. إعداد البيئة:
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+    ```bash
+    cp .env.example .env
+    php artisan key:generate
+    ```
 
-## Security Vulnerabilities
+4. إعداد قاعدة البيانات والبيانات الأولية:
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+    ```bash
+    php artisan migrate --seed
+    ```
 
-## License
+5. تشغيل السيرفر:
+    ```bash
+    php artisan serve
+    ```
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+## 🔐 بيانات الدخول التجريبية (بعد الـ Seed)
+
+- **المشرف العام:** `admin@leadsystem.com` / `password`
+- **المدير:** `manager@leadsystem.com` / `password`
+- **مندوب المبيعات:** `sales@leadsystem.com` / `password`
+
+## 📡 مصادر البيانات (Webhook API)
+
+النظام يدعم الربط مع Facebook Lead Ads و WhatsApp Business API عبر المسارات التالية:
+
+- Facebook: `/api/webhooks/facebook`
+- WhatsApp: `/api/webhooks/whatsapp`
+
+---
+
+تم التطوير بواسطة فريق Antigravity AI 🤖
