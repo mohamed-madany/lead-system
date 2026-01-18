@@ -7,7 +7,7 @@ use Filament\Widgets\ChartWidget;
 
 class LeadSourceChart extends ChartWidget
 {
-    protected ?string $heading = 'Lead Sources Distribution';
+    protected ?string $heading = 'توزيع مصادر العملاء';
 
     protected static ?int $sort = 2;
 
@@ -25,14 +25,14 @@ class LeadSourceChart extends ChartWidget
         foreach ($sources as $source => $count) {
             // Convert enum value to label
             $sourceEnum = \App\Domain\Lead\Enums\LeadSource::from($source);
-            $labels[] = $sourceEnum->label();
+            $labels[] = $sourceEnum->getLabel();
             $data[] = $count;
         }
 
         return [
             'datasets' => [
                 [
-                    'label' => 'Leads by Source',
+                    'label' => 'العملاء حسب المصدر',
                     'data' => $data,
                     'backgroundColor' => [
                         'rgb(59, 130, 246)',  // Blue

@@ -2,7 +2,9 @@
 
 namespace App\Domain\Lead\Enums;
 
-enum LeadSource: string
+use Filament\Support\Contracts\HasLabel;
+
+enum LeadSource: string implements HasLabel
 {
     case FORM = 'form';
     case REFERRAL = 'referral';
@@ -10,25 +12,26 @@ enum LeadSource: string
     case MANUAL = 'manual';
     case IMPORT = 'import';
     case API = 'api';
-    
-    public function label(): string
+
+    public function getLabel(): ?string
     {
-        return match($this) {
+        return match ($this) {
             self::FORM => 'نموذج الموقع',
             self::REFERRAL => 'توصية',
             self::CAMPAIGN => 'حملة تسويقية',
             self::MANUAL => 'إدخال يدوي',
-            self::IMPORT => 'استيراد',
-            self::API => 'ربط خارجي (API)',
+            self::IMPORT => 'استيراد بيانات',
+            self::API => 'ربط برمجى (API)',
         };
     }
-    
+
     public static function options(): array
     {
         $options = [];
         foreach (self::cases() as $case) {
-            $options[$case->value] = $case->label();
+            $options[$case->value] = $case->getLabel();
         }
+
         return $options;
     }
 }

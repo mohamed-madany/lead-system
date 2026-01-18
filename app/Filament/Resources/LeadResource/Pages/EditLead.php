@@ -4,8 +4,8 @@ namespace App\Filament\Resources\LeadResource\Pages;
 
 use App\Filament\Resources\LeadResource;
 use Filament\Actions;
-use Filament\Resources\Pages\EditRecord;
 use Filament\Notifications\Notification;
+use Filament\Resources\Pages\EditRecord;
 
 class EditLead extends EditRecord
 {
@@ -18,17 +18,17 @@ class EditLead extends EditRecord
             Actions\DeleteAction::make(),
         ];
     }
-    
+
     protected function getRedirectUrl(): string
     {
         return $this->getResource()::getUrl('index');
     }
-    
+
     protected function getSavedNotification(): ?Notification
     {
         return Notification::make()
             ->success()
-            ->title('Lead updated')
-            ->body('The lead has been updated successfully.');
+            ->title('تم تحديث البيانات')
+            ->body('تم حفظ التعديلات الجديدة بنجاح.');
     }
 }

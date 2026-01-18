@@ -2,20 +2,33 @@
 
 namespace App\Domain\Lead\Enums;
 
-enum QualityRating: string
+use Filament\Support\Contracts\HasColor;
+use Filament\Support\Contracts\HasLabel;
+
+enum QualityRating: string implements HasLabel, HasColor
 {
     case POOR = 'poor';
     case FAIR = 'fair';
     case GOOD = 'good';
     case EXCELLENT = 'excellent';
     
-    public function label(): string
+    public function getLabel(): ?string
     {
         return match($this) {
-            self::POOR => 'Poor Quality',
-            self::FAIR => 'Fair Quality',
-            self::GOOD => 'Good Quality',
-            self::EXCELLENT => 'Excellent Quality',
+            self::POOR => 'جودة ضعيفة',
+            self::FAIR => 'جودة متوسطة',
+            self::GOOD => 'جودة جيدة',
+            self::EXCELLENT => 'جودة ممتازة',
+        };
+    }
+
+    public function getColor(): string | array | null
+    {
+        return match($this) {
+            self::POOR => 'danger',
+            self::FAIR => 'warning',
+            self::GOOD => 'info',
+            self::EXCELLENT => 'success',
         };
     }
     
@@ -23,7 +36,7 @@ enum QualityRating: string
     {
         $options = [];
         foreach (self::cases() as $case) {
-            $options[$case->value] = $case->label();
+            $options[$case->value] = $case->getLabel();
         }
         return $options;
     }

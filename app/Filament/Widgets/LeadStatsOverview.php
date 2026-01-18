@@ -28,29 +28,29 @@ class LeadStatsOverview extends BaseWidget
         $trend = $previous7Days > 0 ? round((($last7Days - $previous7Days) / $previous7Days) * 100) : 0;
         
         return [
-            Stat::make('Total Leads', $totalLeads)
-                ->description($trend > 0 ? "{$trend}% increase" : "{$trend}% decrease")
-                ->descriptionIcon($trend > 0 ? 'heroicon-m-arrow-trending-up' : 'heroicon-m-arrow-trending-down')
-                ->color($trend > 0 ? 'success' : 'danger')
+            Stat::make('إجمالي العملاء', $totalLeads)
+                ->description($trend >= 0 ? "زيادة بنسبة {$trend}%" : "انخفاض بنسبة " . abs($trend) . "%")
+                ->descriptionIcon($trend >= 0 ? 'heroicon-m-arrow-trending-up' : 'heroicon-m-arrow-trending-down')
+                ->color($trend >= 0 ? 'success' : 'danger')
                 ->chart(array_fill(0, 7, rand(10, 50))),
             
-            Stat::make('New Leads', $newLeads)
-                ->description('Uncontacted leads')
+            Stat::make('عملاء جدد', $newLeads)
+                ->description('لم يتم التواصل معهم')
                 ->descriptionIcon('heroicon-o-user-plus')
                 ->color('primary'),
             
-            Stat::make('Qualified Leads', $qualifiedLeads)
-                ->description('Ready for sales')
+            Stat::make('عملاء مؤهلون', $qualifiedLeads)
+                ->description('جاهزون لمرحلة المبيعات')
                 ->descriptionIcon('heroicon-o-check-badge')
                 ->color('info'),
             
-            Stat::make('Won Deals', $wonLeads)
-                ->description("{$conversionRate}% conversion rate")
+            Stat::make('صفقات ناجحة', $wonLeads)
+                ->description("معدل تحويل {$conversionRate}%")
                 ->descriptionIcon('heroicon-o-trophy')
                 ->color('success'),
             
-            Stat::make('Average Score', $avgScore . '/100')
-                ->description('Lead quality indicator')
+            Stat::make('متوسط النقاط', $avgScore . '/100')
+                ->description('مؤشر جودة العملاء')
                 ->descriptionIcon('heroicon-o-star')
                 ->color($avgScore >= 70 ? 'success' : ($avgScore >= 40 ? 'warning' : 'danger')),
         ];

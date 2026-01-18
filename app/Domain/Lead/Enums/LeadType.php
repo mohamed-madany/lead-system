@@ -2,29 +2,32 @@
 
 namespace App\Domain\Lead\Enums;
 
-enum LeadType: string
+use Filament\Support\Contracts\HasLabel;
+
+enum LeadType: string implements HasLabel
 {
     case COLD = 'cold';
     case WARM = 'warm';
     case HOT = 'hot';
     case CUSTOMER = 'customer';
-    
-    public function label(): string
+
+    public function getLabel(): ?string
     {
-        return match($this) {
-            self::COLD => 'Cold Lead',
-            self::WARM => 'Warm Lead',
-            self::HOT => 'Hot Lead',
-            self::CUSTOMER => 'Existing Customer',
+        return match ($this) {
+            self::COLD => 'عميل بارد',
+            self::WARM => 'عميل مهتم',
+            self::HOT => 'عميل ساخن',
+            self::CUSTOMER => 'عميل سابق',
         };
     }
-    
+
     public static function options(): array
     {
         $options = [];
         foreach (self::cases() as $case) {
-            $options[$case->value] = $case->label();
+            $options[$case->value] = $case->getLabel();
         }
+
         return $options;
     }
 }

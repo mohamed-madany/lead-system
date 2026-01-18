@@ -13,13 +13,13 @@ class UserSeeder extends Seeder
      */
     public function run(): void
     {
-        // Create admin user
+        // سكرتير النظام (أدمن اللوحة العليا)
         User::firstOrCreate(
             ['email' => 'admin@leadsystem.com'],
             [
-                'name' => 'Admin User',
+                'name' => 'مدير النظام الرئيسي',
                 'password' => Hash::make('password'),
-                'phone' => '+1 (555) 000-0001',
+                'phone' => '01000000001',
                 'role' => 'admin',
                 'is_active' => true,
                 'is_platform_admin' => true,
@@ -27,35 +27,32 @@ class UserSeeder extends Seeder
             ]
         );
 
-        // Create manager user
+        // مدير مبيعات
         User::firstOrCreate(
             ['email' => 'manager@leadsystem.com'],
             [
-                'name' => 'Manager User',
+                'name' => 'مدير مبيعات',
                 'password' => Hash::make('password'),
-                'phone' => '+1 (555) 000-0002',
+                'phone' => '01000000002',
                 'role' => 'manager',
                 'is_active' => true,
                 'email_verified_at' => now(),
             ]
         );
 
-        // Create regular user
+        // مندوب مبيعات
         User::firstOrCreate(
             ['email' => 'sales@leadsystem.com'],
             [
-                'name' => 'Sales Rep',
+                'name' => 'مندوب مبيعات',
                 'password' => Hash::make('password'),
-                'phone' => '+1 (555) 000-0003',
+                'phone' => '01000000003',
                 'role' => 'user',
                 'is_active' => true,
                 'email_verified_at' => now(),
             ]
         );
 
-        $this->command->info('✅ Created 3 test users:');
-        $this->command->info('   Admin: admin@leadsystem.com / password');
-        $this->command->info('   Manager: manager@leadsystem.com / password');
-        $this->command->info('   Sales: sales@leadsystem.com / password');
+        $this->command->info('✅ تم إنشاء 3 مستخدمين تجريبيين بنجاح.');
     }
 }

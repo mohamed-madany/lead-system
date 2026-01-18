@@ -8,7 +8,7 @@ use Filament\Widgets\ChartWidget;
 
 class LeadConversionChart extends ChartWidget
 {
-    protected ?string $heading = 'Lead Conversion Funnel';
+    protected ?string $heading = 'مخطط تحويل العملاء (Funnel)';
 
     protected static ?int $sort = 3;
 
@@ -21,7 +21,7 @@ class LeadConversionChart extends ChartWidget
         return [
             'datasets' => [
                 [
-                    'label' => 'Leads',
+                    'label' => 'عدد العملاء',
                     'data' => [$total, $qualified, $won],
                     'backgroundColor' => [
                         '#9ca3af', // Gray for Total
@@ -30,7 +30,7 @@ class LeadConversionChart extends ChartWidget
                     ],
                 ],
             ],
-            'labels' => ['Total Leads', 'Qualified', 'Won Deals'],
+            'labels' => ['إجمالي العملاء', 'عملاء مؤهلون', 'عمليات ناجحة'],
         ];
     }
 

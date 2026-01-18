@@ -2,7 +2,10 @@
 
 namespace App\Domain\Lead\Enums;
 
-enum LeadStatus: string
+use Filament\Support\Contracts\HasColor;
+use Filament\Support\Contracts\HasLabel;
+
+enum LeadStatus: string implements HasColor, HasLabel
 {
     case NEW = 'new';
     case CONTACTED = 'contacted';
@@ -10,63 +13,48 @@ enum LeadStatus: string
     case WON = 'won';
     case LOST = 'lost';
     case ARCHIVED = 'archived';
-    
-    /**
-     * Get human-readable label
-     */
-    public function label(): string
+
+    public function getLabel(): ?string
     {
-        return match($this) {
-            self::NEW => 'New Lead',
-            self::CONTACTED => 'Contacted',
-            self::QUALIFIED => 'Qualified',
-            self::WON => 'Won Deal',
-            self::LOST => 'Lost Opportunity',
-            self::ARCHIVED => 'Archived',
+        return match ($this) {
+            self::NEW => 'جديد',
+            self::CONTACTED => 'تم التواصل',
+            self::QUALIFIED => 'عميل مؤهل',
+            self::WON => 'عملية ناجحة',
+            self::LOST => 'فرصة ضائعة',
+            self::ARCHIVED => 'مؤرشف',
         };
     }
-    
-    /**
-     * Get color for UI display
-     */
-    public function color(): string
+
+    public function getColor(): string|array|null
     {
-        return match($this) {
+        return match ($this) {
             self::WON => 'success',
             self::QUALIFIED => 'info',
             self::CONTACTED => 'warning',
             self::LOST => 'danger',
-            self::ARCHIVED => 'secondary',
+            self::ARCHIVED => 'gray',
             self::NEW => 'primary',
         };
     }
 
-
-    /**
-     * Check if status is terminal (cannot be changed)
-     */
     public function isTerminal(): bool
     {
         return in_array($this, [self::WON, self::LOST, self::ARCHIVED]);
     }
-    
-    /**
-     * Get all statuses as array
-     */
+
     public static function toArray(): array
     {
         return array_column(self::cases(), 'value');
     }
-    
-    /**
-     * Get all statuses for select options
-     */
+
     public static function options(): array
     {
         $options = [];
         foreach (self::cases() as $case) {
-            $options[$case->value] = $case->label();
+            $options[$case->value] = $case->getLabel();
         }
+
         return $options;
     }
 }

@@ -22,7 +22,13 @@ class TenantResource extends Resource
 {
     protected static ?string $model = Tenant::class;
 
-    protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedRectangleStack;
+    protected static string|BackedEnum|null $navigationIcon = 'heroicon-o-building-office-2';
+
+    protected static ?string $navigationLabel = 'الشركات (Tenants)';
+
+    protected static ?string $pluralLabel = 'الشركات';
+
+    protected static ?string $modelLabel = 'شركة';
 
     protected static ?string $recordTitleAttribute = 'name';
 

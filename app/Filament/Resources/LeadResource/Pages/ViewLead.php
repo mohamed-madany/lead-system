@@ -13,8 +13,8 @@ class ViewLead extends ViewRecord
     protected function getHeaderActions(): array
     {
         return [
-            Actions\EditAction::make(),
-            Actions\DeleteAction::make(),
+            Actions\EditAction::make()->label('تعديل'),
+            Actions\DeleteAction::make()->label('حذف'),
         ];
     }
 }

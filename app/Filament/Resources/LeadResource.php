@@ -8,8 +8,13 @@ use App\Domain\Lead\Enums\LeadType;
 use App\Domain\Lead\Enums\QualityRating;
 use App\Domain\Lead\Models\Lead;
 use App\Filament\Resources\LeadResource\Pages;
+use Filament\Actions\ActionGroup;
+use Filament\Actions\BulkActionGroup;
+use Filament\Actions\DeleteAction;
+use Filament\Actions\DeleteBulkAction;
+use Filament\Actions\EditAction;
+use Filament\Actions\ViewAction;
 use Filament\Forms;
-use Filament\Notifications\Notification;
 use Filament\Resources\Resource;
 use Filament\Schemas\Schema;
 use Filament\Tables;
@@ -30,7 +35,7 @@ class LeadResource extends Resource
 
     public static function getNavigationLabel(): string
     {
-        return 'Leads';
+        return 'العملاء المهتمين';
     }
 
     public static function getNavigationSort(): ?int
@@ -43,82 +48,100 @@ class LeadResource extends Resource
         return 'name';
     }
 
+    public static function getPluralLabel(): ?string
+    {
+        return 'العملاء المهتمين';
+    }
+
+    public static function getModelLabel(): string
+    {
+        return 'عميل';
+    }
+
     public static function form(Schema $schema): Schema
     {
         return $schema->components([
-            \Filament\Schemas\Components\Section::make('Contact Information')
-                ->description('Lead contact details')
+            \Filament\Schemas\Components\Section::make('البيانات الشخصية')
+                ->description('بيانات التواصل الأساسية للعميل')
                 ->components([
                     \Filament\Forms\Components\TextInput::make('name')
+                        ->label('الاسم الكامل')
                         ->required()
                         ->maxLength(255)
-                        ->placeholder('Full name')
+                        ->placeholder('أدخل اسم العميل بالكامل')
                         ->columnSpan(2),
 
                     \Filament\Forms\Components\TextInput::make('email')
+                        ->label('البريد الإلكتروني')
                         ->email()
                         ->required()
                         ->maxLength(255)
-                        ->placeholder('email@example.com')
+                        ->placeholder('example@mail.com')
                         ->suffixIcon('heroicon-o-envelope'),
 
                     \Filament\Forms\Components\TextInput::make('phone')
+                        ->label('رقم الهاتف')
                         ->tel()
                         ->required()
                         ->maxLength(50)
-                        ->placeholder('+1 (555) 000-0000')
+                        ->placeholder('01xxxxxxxxx')
                         ->suffixIcon('heroicon-o-phone'),
 
                     \Filament\Forms\Components\TextInput::make('company_name')
+                        ->label('اسم الشركة')
                         ->maxLength(255)
-                        ->placeholder('Company name')
+                        ->placeholder('اختياري')
                         ->suffixIcon('heroicon-o-building-office'),
 
                     \Filament\Forms\Components\TextInput::make('job_title')
+                        ->label('المسمى الوظيفي')
                         ->maxLength(255)
-                        ->placeholder('Job title')
+                        ->placeholder('اختياري')
                         ->suffixIcon('heroicon-o-briefcase'),
                 ])
                 ->columns(2)
                 ->collapsible(),
 
-            \Filament\Schemas\Components\Section::make('Lead Classification')
-                ->description('Status, source, and scoring information')
+            \Filament\Schemas\Components\Section::make('تصنيف العميل')
+                ->description('الحالة، المصدر، وتقييم جودة العميل')
                 ->components([
                     \Filament\Forms\Components\Select::make('status')
-                        ->options(LeadStatus::options())
-                        ->default('new')
+                        ->label('حالة العميل')
+                        ->options(LeadStatus::class)
+                        ->default(LeadStatus::NEW)
                         ->required()
                         ->native(false),
 
                     \Filament\Forms\Components\Select::make('source')
-                        ->options(LeadSource::options())
-                        ->default('form')
+                        ->label('مصدر العميل')
+                        ->options(LeadSource::class)
+                        ->default(LeadSource::MANUAL)
                         ->required()
                         ->native(false),
 
                     \Filament\Forms\Components\Select::make('lead_type')
-                        ->label('Lead Type')
-                        ->options(LeadType::options())
-                        ->default('cold')
+                        ->label('نوع العميل')
+                        ->options(LeadType::class)
+                        ->default(LeadType::COLD)
                         ->native(false),
 
                     \Filament\Forms\Components\Select::make('quality_rating')
-                        ->label('Quality Rating')
-                        ->options(QualityRating::options())
-                        ->default('fair')
+                        ->label('تقييم الجودة')
+                        ->options(QualityRating::class)
+                        ->default(QualityRating::FAIR)
                         ->native(false),
 
                     \Filament\Forms\Components\TextInput::make('score')
+                        ->label('النقاط (Score)')
                         ->numeric()
                         ->minValue(0)
                         ->maxValue(100)
                         ->default(0)
-                        ->suffix('points')
-                        ->helperText('Lead score (0-100)'),
+                        ->suffix('نقطة')
+                        ->helperText('تقييم العميل من 0 إلى 100'),
 
                     \Filament\Forms\Components\TextInput::make('probability_percentage')
-                        ->label('Win Probability')
+                        ->label('احتمالية الإغلاق')
                         ->numeric()
                         ->minValue(0)
                         ->maxValue(100)
@@ -128,41 +151,41 @@ class LeadResource extends Resource
                 ->columns(3)
                 ->collapsible(),
 
-            \Filament\Schemas\Components\Section::make('Assignment & Value')
+            \Filament\Schemas\Components\Section::make('المسؤول والقيمة المتوقعة')
                 ->components([
                     \Filament\Forms\Components\Select::make('assigned_to')
-                        ->label('Assigned To')
+                        ->label('تعيين للموظف')
                         ->relationship('assignedUser', 'name')
                         ->searchable()
                         ->preload()
-                        ->placeholder('Unassigned')
+                        ->placeholder('غير معين')
                         ->native(false)
                         ->disabled(fn () => ! auth()->user()->hasRole(['admin', 'manager'])),
 
                     \Filament\Forms\Components\TextInput::make('estimated_value')
-                        ->label('Estimated Value')
+                        ->label('القيمة التقديرية')
                         ->numeric()
-                        ->prefix('$')
-                        ->step('0.01')
+                        ->prefix('ج.م')
+                        ->step('1')
                         ->placeholder('0.00'),
                 ])
                 ->columns(2)
                 ->collapsible(),
 
-            \Filament\Schemas\Components\Section::make('Notes & Comments')
+            \Filament\Schemas\Components\Section::make('ملاحظات وتفاصيل إضافية')
                 ->components([
                     \Filament\Forms\Components\Textarea::make('notes')
-                        ->label('Public Notes')
+                        ->label('ملاحظات العميل')
                         ->rows(3)
                         ->maxLength(2000)
-                        ->placeholder('Notes visible to the lead')
+                        ->placeholder('أي ملاحظات ذكرها العميل')
                         ->columnSpan(2),
 
                     \Filament\Forms\Components\Textarea::make('internal_comments')
-                        ->label('Internal Comments')
+                        ->label('تعليقات داخلية')
                         ->rows(3)
                         ->maxLength(2000)
-                        ->placeholder('Internal notes (not visible to lead)')
+                        ->placeholder('ملاحظات الموظفين (لا تراها العميل)')
                         ->columnSpan(2),
                 ])
                 ->columns(2)
@@ -175,37 +198,31 @@ class LeadResource extends Resource
         return $table
             ->columns([
                 Tables\Columns\TextColumn::make('name')
+                    ->label('الاسم')
                     ->searchable()
                     ->sortable()
                     ->weight('bold')
                     ->description(fn (Lead $record): ?string => $record->company_name),
 
                 Tables\Columns\TextColumn::make('email')
+                    ->label('البريد')
                     ->searchable()
-                    ->copyable()
-                    ->icon('heroicon-o-envelope')
-                    ->iconColor('primary')
-                    ->toggleable(),
+                    ->toggleable()
+                    ->toggledHiddenByDefault(),
 
                 Tables\Columns\TextColumn::make('phone')
+                    ->label('رقم الهاتف')
                     ->searchable()
                     ->copyable()
-                    ->icon('heroicon-o-phone')
-                    ->toggleable(),
+                    ->icon('heroicon-o-phone'),
 
-                Tables\Columns\BadgeColumn::make('status')
-                    ->formatStateUsing(fn (LeadStatus $state) => $state->label())
-                    ->colors([
-                        'success' => fn (LeadStatus $state) => $state === LeadStatus::WON,
-                        'info' => fn (LeadStatus $state) => $state === LeadStatus::QUALIFIED,
-                        'warning' => fn (LeadStatus $state) => $state === LeadStatus::CONTACTED,
-                        'danger' => fn (LeadStatus $state) => $state === LeadStatus::LOST,
-                        'gray' => fn (LeadStatus $state) => $state === LeadStatus::ARCHIVED,
-                        'primary' => fn (LeadStatus $state) => $state === LeadStatus::NEW,
-                    ])
+                Tables\Columns\TextColumn::make('status')
+                    ->label('الحالة')
+                    ->badge()
                     ->sortable(),
 
                 Tables\Columns\TextColumn::make('score')
+                    ->label('النقاط')
                     ->numeric()
                     ->sortable()
                     ->badge()
@@ -215,73 +232,67 @@ class LeadResource extends Resource
                         $state >= 40 => 'warning',
                         default => 'danger',
                     })
-                    ->suffix(' pts')
+                    ->suffix(' نقطة')
                     ->toggleable(),
 
                 Tables\Columns\TextColumn::make('source')
-                    ->formatStateUsing(fn (LeadSource $state) => $state->label())
+                    ->label('المصدر')
                     ->badge()
                     ->toggleable(),
 
                 Tables\Columns\TextColumn::make('assignedUser.name')
-                    ->label('Assigned To')
-                    ->default('Unassigned')
+                    ->label('الموظف المسؤول')
+                    ->default('غير معين')
                     ->badge()
                     ->color('gray')
                     ->toggleable(),
 
                 Tables\Columns\TextColumn::make('created_at')
-                    ->dateTime('M d, Y')
+                    ->label('تاريخ الإضافة')
+                    ->dateTime('Y-m-d')
                     ->sortable()
-                    ->toggleable()
-                    ->toggledHiddenByDefault(),
-
-                Tables\Columns\TextColumn::make('qualified_at')
-                    ->label('Qualified')
-                    ->dateTime('M d, Y')
-                    ->sortable()
-                    ->toggleable()
-                    ->toggledHiddenByDefault(),
+                    ->toggleable(),
             ])
             ->defaultSort('created_at', 'desc')
             ->filters([
                 Tables\Filters\SelectFilter::make('status')
-                    ->options(LeadStatus::options())
-                    ->multiple()
-                    ->label('Status'),
+                    ->label('الحالة')
+                    ->options(LeadStatus::class)
+                    ->multiple(),
 
                 Tables\Filters\SelectFilter::make('source')
-                    ->options(LeadSource::options())
-                    ->multiple()
-                    ->label('Source'),
+                    ->label('المصدر')
+                    ->options(LeadSource::class)
+                    ->multiple(),
 
                 Tables\Filters\SelectFilter::make('lead_type')
-                    ->options(LeadType::options())
-                    ->multiple()
-                    ->label('Lead Type'),
+                    ->label('نوع العميل')
+                    ->options(LeadType::class)
+                    ->multiple(),
 
                 Tables\Filters\SelectFilter::make('assigned_to')
+                    ->label('الموظف المسؤول')
                     ->relationship('assignedUser', 'name')
                     ->searchable()
-                    ->preload()
-                    ->label('Assigned To'),
+                    ->preload(),
 
                 Tables\Filters\Filter::make('high_score')
-                    ->label('High Score (70+)')
+                    ->label('العملاء ذوي الجودة العالية (70+)')
                     ->query(fn (Builder $query) => $query->where('score', '>=', 70))
                     ->toggle(),
 
                 Tables\Filters\Filter::make('unassigned')
-                    ->label('Unassigned')
+                    ->label('عملاء غير معينين')
                     ->query(fn (Builder $query) => $query->whereNull('assigned_to'))
                     ->toggle(),
 
                 Tables\Filters\Filter::make('created_at')
+                    ->label('تاريخ الإضافة')
                     ->form([
                         Forms\Components\DatePicker::make('created_from')
-                            ->label('Created From'),
+                            ->label('من تاريخ'),
                         Forms\Components\DatePicker::make('created_until')
-                            ->label('Created Until'),
+                            ->label('إلى تاريخ'),
                     ])
                     ->query(function (Builder $query, array $data): Builder {
                         return $query
@@ -296,126 +307,17 @@ class LeadResource extends Resource
                     }),
             ])
             ->actions([
-                \Filament\Actions\ActionGroup::make([
-                    \Filament\Actions\ViewAction::make(),
-                    \Filament\Actions\EditAction::make(),
-
-                    \Filament\Actions\Action::make('qualify')
-                        ->label('Qualify')
-                        ->icon('heroicon-o-check-badge')
-                        ->color('success')
-                        ->requiresConfirmation()
-                        ->action(function (Lead $record) {
-                            $record->qualify();
-                            Notification::make()
-                                ->title('Lead qualified successfully')
-                                ->success()
-                                ->send();
-                        })
-                        ->visible(fn (Lead $record) => $record->status !== LeadStatus::QUALIFIED),
-
-                    \Filament\Actions\Action::make('markAsWon')
-                        ->label('Mark as Won')
-                        ->icon('heroicon-o-trophy')
-                        ->color('success')
-                        ->form([
-                            \Filament\Forms\Components\TextInput::make('value')
-                                ->label('Deal Value')
-                                ->numeric()
-                                ->prefix('$')
-                                ->required(),
-                        ])
-                        ->action(function (Lead $record, array $data) {
-                            $record->markAsWon($data['value']);
-                            Notification::make()
-                                ->title('Lead marked as won!')
-                                ->success()
-                                ->send();
-                        }),
-
-                    \Filament\Actions\Action::make('markAsLost')
-                        ->label('Mark as Lost')
-                        ->icon('heroicon-o-x-circle')
-                        ->color('danger')
-                        ->form([
-                            \Filament\Forms\Components\Textarea::make('reason')
-                                ->label('Reason for losing')
-                                ->required()
-                                ->rows(3),
-                        ])
-                        ->action(function (Lead $record, array $data) {
-                            $record->markAsLost($data['reason']);
-                            Notification::make()
-                                ->title('Lead marked as lost')
-                                ->warning()
-                                ->send();
-                        }),
-
-                    \Filament\Actions\DeleteAction::make(),
-                ]),
+                ActionGroup::make([
+                    ViewAction::make()->label('عرض'),
+                    EditAction::make()->label('تعديل'),
+                    DeleteAction::make()->label('حذف'),
+                ])->label('خيارات'),
             ])
             ->bulkActions([
-                \Filament\Actions\BulkActionGroup::make([
-                    \Filament\Actions\BulkAction::make('changeStatus')
-                        ->label('Change Status')
-                        ->icon('heroicon-o-arrow-path')
-                        ->form([
-                            \Filament\Forms\Components\Select::make('status')
-                                ->label('New Status')
-                                ->options(LeadStatus::options())
-                                ->required()
-                                ->native(false),
-                        ])
-                        ->action(function (\Illuminate\Database\Eloquent\Collection $records, array $data) {
-                            $records->each->update(['status' => $data['status']]);
-
-                            Notification::make()
-                                ->title('Status updated for '.$records->count().' leads')
-                                ->success()
-                                ->send();
-                        }),
-
-                    \Filament\Actions\BulkAction::make('assignTo')
-                        ->label('Assign To User')
-                        ->icon('heroicon-o-user')
-                        ->form([
-                            \Filament\Forms\Components\Select::make('user_id')
-                                ->label('Assign To')
-                                ->relationship('assignedUser', 'name')
-                                ->searchable()
-                                ->required()
-                                ->native(false),
-                        ])
-                        ->action(function (\Illuminate\Database\Eloquent\Collection $records, array $data) {
-                            $records->each->assignTo($data['user_id']);
-
-                            Notification::make()
-                                ->title('Assigned '.$records->count().' leads')
-                                ->success()
-                                ->send();
-                        }),
-
-                    \Filament\Actions\DeleteBulkAction::make(),
-
-                    \Filament\Actions\BulkAction::make('export')
-                        ->label('Export Selected')
-                        ->icon('heroicon-o-arrow-down-tray')
-                        ->action(function (\Illuminate\Database\Eloquent\Collection $records) {
-                            // Export logic here
-                            Notification::make()
-                                ->title('Export started')
-                                ->info()
-                                ->send();
-                        }),
-                ]),
+                BulkActionGroup::make([
+                    DeleteBulkAction::make()->label('حذف المحدد'),
+                ])->label('عمليات بالجملة'),
             ]);
-    }
-
-    public static function getRelations(): array
-    {
-        return [
-            //
-        ];
     }
 
     public static function getPages(): array
@@ -423,29 +325,8 @@ class LeadResource extends Resource
         return [
             'index' => Pages\ListLeads::route('/'),
             'create' => Pages\CreateLead::route('/create'),
-            'edit' => Pages\EditLead::route('/{record}/edit'),
             'view' => Pages\ViewLead::route('/{record}'),
+            'edit' => Pages\EditLead::route('/{record}/edit'),
         ];
-    }
-
-    public static function getNavigationBadge(): ?string
-    {
-        return static::getModel()::where('status', LeadStatus::NEW)->count();
-    }
-
-    public static function getNavigationBadgeColor(): ?string
-    {
-        return 'primary';
-    }
-
-    public static function getEloquentQuery(): Builder
-    {
-        $query = parent::getEloquentQuery();
-
-        if (auth()->check() && auth()->user()->hasRole(['admin', 'manager'])) {
-            return $query;
-        }
-
-        return $query->where('assigned_to', auth()->id());
     }
 }

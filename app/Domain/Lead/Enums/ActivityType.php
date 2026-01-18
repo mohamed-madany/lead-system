@@ -2,7 +2,10 @@
 
 namespace App\Domain\Lead\Enums;
 
-enum ActivityType: string
+use Filament\Support\Contracts\HasIcon;
+use Filament\Support\Contracts\HasLabel;
+
+enum ActivityType: string implements HasIcon, HasLabel
 {
     case CALL = 'call';
     case EMAIL = 'email';
@@ -12,24 +15,24 @@ enum ActivityType: string
     case SCORE_UPDATE = 'score_update';
     case ASSIGNMENT = 'assignment';
     case QUALIFICATION = 'qualification';
-    
-    public function label(): string
+
+    public function getLabel(): ?string
     {
-        return match($this) {
-            self::CALL => 'Phone Call',
-            self::EMAIL => 'Email',
-            self::MEETING => 'Meeting',
-            self::NOTE => 'Note',
-            self::STATUS_CHANGE => 'Status Change',
-            self::SCORE_UPDATE => 'Score Update',
-            self::ASSIGNMENT => 'Assignment',
-            self::QUALIFICATION => 'Qualification',
+        return match ($this) {
+            self::CALL => 'مكالمة هاتفية',
+            self::EMAIL => 'بريد إلكتروني',
+            self::MEETING => 'اجتماع',
+            self::NOTE => 'ملحوظة',
+            self::STATUS_CHANGE => 'تغيير الحالة',
+            self::SCORE_UPDATE => 'تحديث النقاط',
+            self::ASSIGNMENT => 'تعيين موظف',
+            self::QUALIFICATION => 'تأهيل العميل',
         };
     }
-    
-    public function icon(): string
+
+    public function getIcon(): ?string
     {
-        return match($this) {
+        return match ($this) {
             self::CALL => 'heroicon-o-phone',
             self::EMAIL => 'heroicon-o-envelope',
             self::MEETING => 'heroicon-o-calendar',
@@ -40,13 +43,14 @@ enum ActivityType: string
             self::QUALIFICATION => 'heroicon-o-check-badge',
         };
     }
-    
+
     public static function options(): array
     {
         $options = [];
         foreach (self::cases() as $case) {
-            $options[$case->value] = $case->label();
+            $options[$case->value] = $case->getLabel();
         }
+
         return $options;
     }
 }

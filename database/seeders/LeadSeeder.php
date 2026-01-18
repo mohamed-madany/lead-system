@@ -2,9 +2,9 @@
 
 namespace Database\Seeders;
 
+use App\Application\Lead\Services\LeadScoringService;
 use App\Domain\Lead\Models\Lead;
 use App\Models\User;
-use App\Application\Lead\Services\LeadScoringService;
 use Illuminate\Database\Seeder;
 
 class LeadSeeder extends Seeder
@@ -14,134 +14,134 @@ class LeadSeeder extends Seeder
      */
     public function run(): void
     {
-        $scoringService = new LeadScoringService();
+        $scoringService = new LeadScoringService;
         $users = User::all();
-        
+
         $leads = [
             [
-                'name' => 'John Smith',
-                'email' => 'john.smith@techcorp.com',
-                'phone' => '+1 (555) 123-4567',
-                'company_name' => 'TechCorp Inc',
-                'job_title' => 'CTO',
-                'notes' => 'Interested in enterprise solution for 500+ employees.',
+                'name' => 'أحمد محمد علي',
+                'email' => 'ahmed.ali@techcorp.com',
+                'phone' => '01012345678',
+                'company_name' => 'شركة التقنية المتطورة',
+                'job_title' => 'مدير تقني',
+                'notes' => 'مهتم بالحلول المؤسسية لأكثر من 500 موظف.',
                 'source' => 'referral',
                 'status' => 'new',
             ],
             [
-                'name' => 'Sarah Johnson',
-                'email' => 'sarah.j@gmail.com',
-                'phone' => '+1 (555) 234-5678',
-                'company_name' => 'StartupXYZ',
-                'job_title' => 'CEO',
-                'notes' => 'Looking for affordable solution for small team.',
+                'name' => 'سارة محمود الهاشمي',
+                'email' => 'sarah.m@gmail.com',
+                'phone' => '01123456789',
+                'company_name' => 'ستارت أب المنار',
+                'job_title' => 'المدير التنفيذي',
+                'notes' => 'تبحث عن حل ميسر لفريق صغير.',
                 'source' => 'form',
                 'status' => 'contacted',
             ],
             [
-                'name' => 'Michael Chen',
-                'email' => 'mchen@innovate.io',
-                'phone' => '+1 (555) 345-6789',
-                'company_name' => 'Innovate Solutions',
-                'job_title' => 'VP of Sales',
-                'notes' => 'Needs demo urgently. Budget approved.',
+                'name' => 'محمود كمال الجندى',
+                'email' => 'm.kamal@innovate.io',
+                'phone' => '01234567890',
+                'company_name' => 'حلول الابتكار',
+                'job_title' => 'نائب رئيس المبيعات',
+                'notes' => 'يحتاج إلى عرض توضيحي عاجل. الميزانية معتمدة.',
                 'source' => 'campaign',
                 'status' => 'qualified',
             ],
             [
-                'name' => 'Emily Rodriguez',
-                'email' => 'emily.r@megacorp.com',
-                'phone' => '+1 (555) 456-7890',
-                'company_name' => 'MegaCorp Ltd',
-                'job_title' => 'Director of Marketing',
-                'notes' => 'Attended webinar, very interested in implementation.',
+                'name' => 'ليلى إبراهيم فوزي',
+                'email' => 'laila.f@megacorp.ae',
+                'phone' => '971501234567',
+                'company_name' => 'ميجاكورب العالمية',
+                'job_title' => 'مديرة التسويق',
+                'notes' => 'حضرت الندوة عبر الإنترنت، مهتمة جداً بالتنفيذ.',
                 'source' => 'campaign',
                 'status' => 'new',
             ],
             [
-                'name' => 'David Park',
-                'email' => 'david@fastgrow.com',
-                'phone' => '+1 (555) 567-8901',
-                'company_name' => 'FastGrow Inc',
-                'job_title' => 'Head of Operations',
-                'notes' => 'Comparing with competitors. Price sensitive.',
+                'name' => 'ياسين منصور ذكي',
+                'email' => 'yassin@fastgrow.com',
+                'phone' => '01545678901',
+                'company_name' => 'شركة النمو السريع',
+                'job_title' => 'رئيس العمليات',
+                'notes' => 'يقارن مع المنافسين. مهتم جداً بالسعر.',
                 'source' => 'form',
                 'status' => 'contacted',
             ],
             [
-                'name' => 'Lisa Anderson',
-                'email' => 'lisa.anderson@enterprise.co',
-                'phone' => '+1 (555) 678-9012',
-                'company_name' => 'Enterprise Co',
-                'job_title' => 'CFO',
-                'notes' => 'Large enterprise client. High value opportunity.',
+                'name' => 'منى عيسى السعدني',
+                'email' => 'mona.e@enterprise.co',
+                'phone' => '0506789012',
+                'company_name' => 'المؤسسة المتحدة',
+                'job_title' => 'المدير المالي',
+                'notes' => 'عميل مؤسسي كبير. فرصة ذات قيمة عالية.',
                 'source' => 'referral',
                 'status' => 'qualified',
             ],
             [
-                'name' => 'James Wilson',
-                'email' => 'jwilson@yahoo.com',
-                'phone' => '+1 (555) 789-0123',
+                'name' => 'عادل وجدي خليل',
+                'email' => 'adel.w@yahoo.com',
+                'phone' => '0127890123',
                 'company_name' => null,
                 'job_title' => null,
-                'notes' => 'Individual inquiry. No follow-up yet.',
+                'notes' => 'استفسار فردي. لم يتم المتابعة بعد.',
                 'source' => 'form',
                 'status' => 'new',
             ],
             [
-                'name' => 'Maria Garcia',
-                'email' => 'maria@digitalagency.net',
-                'phone' => '+1 (555) 890-1234',
-                'company_name' => 'Digital Agency',
-                'job_title' => 'Account Manager',
-                'notes' => 'Client referred by existing customer.',
+                'name' => 'نورا حسن جلال',
+                'email' => 'nora@digitalagency.net',
+                'phone' => '0118901234',
+                'company_name' => 'وكالة ديجيتال',
+                'job_title' => 'مديرة حسابات',
+                'notes' => 'تمت التوصية بها من قبل عميل قديم.',
                 'source' => 'referral',
                 'status' => 'won',
-                'estimated_value' => 15000.00,
+                'estimated_value' => 150000.00,
                 'probability_percentage' => 100,
             ],
             [
-                'name' => 'Robert Taylor',
-                'email' => 'rtaylor@oldschool.com',
-                'phone' => '+1 (555) 901-2345',
-                'company_name' => 'OldSchool Corp',
-                'job_title' => 'Manager',
-                'notes' => 'Not interested in cloud solutions.',
+                'name' => 'خالد عبد الرحمن السيف',
+                'email' => 'khaled@oldschool.com',
+                'phone' => '0559012345',
+                'company_name' => 'المجموعة التقليدية',
+                'job_title' => 'مدير عام',
+                'notes' => 'غير مهتم بحلول السحابة حالياً.',
                 'source' => 'campaign',
                 'status' => 'lost',
-                'metadata' => ['lost_reason' => 'Not ready for cloud migration'],
+                'metadata' => ['lost_reason' => 'يفضل العمل على خوادم محلية'],
             ],
             [
-                'name' => 'Jennifer Lee',
-                'email' => 'jen.lee@moderntech.io',
-                'phone' => '+1 (555) 012-3456',
-                'company_name' => 'ModernTech',
-                'job_title' => 'Product Manager',
-                'notes' => 'Scheduled for demo next week.',
+                'name' => 'إياد كامل بدوي',
+                'email' => 'eyad.b@moderntech.io',
+                'phone' => '0100123456',
+                'company_name' => 'مودرن تك',
+                'job_title' => 'مدير منتج',
+                'notes' => 'موعد العرض التجريبي الأسبوع القادم.',
                 'source' => 'form',
                 'status' => 'contacted',
             ],
         ];
-        
+
         foreach ($leads as $leadData) {
             $lead = Lead::create($leadData);
-            
+
             // Calculate and set score
             $score = $scoringService->calculateScore($lead);
             $leadType = $scoringService->determineLeadType($score);
             $qualityRating = $scoringService->determineQualityRating($score);
-            
+
             $lead->update([
                 'score' => $score,
                 'lead_type' => $leadType,
                 'quality_rating' => $qualityRating,
             ]);
-            
+
             // Assign some leads randomly
             if (rand(0, 1) && $users->isNotEmpty()) {
                 $lead->assignTo($users->random()->id);
             }
-            
+
             // Set qualified and won dates for appropriate statuses
             if ($lead->status->value === 'qualified') {
                 $lead->update(['qualified_at' => now()->subDays(rand(1, 5))]);
@@ -153,7 +153,7 @@ class LeadSeeder extends Seeder
                 ]);
             }
         }
-        
-        $this->command->info('✅ Created ' . count($leads) . ' sample leads with calculated scores');
+
+        $this->command->info('✅ Created '.count($leads).' sample leads with Arabic data');
     }
 }
