@@ -26,8 +26,14 @@ class AppPanelProvider extends PanelProvider
             ->id('app')
             ->path('super-admin')
             ->darkMode(false)
+            ->userMenuItems([
+                'dashboard' => \Filament\Navigation\MenuItem::make()
+                    ->label('العودة للوحة الشركة')
+                    ->url('/admin')
+                    ->icon('heroicon-o-building-office-2'),
+            ])
             ->colors([
-                'primary' => '#016fb9',
+                'primary' => '#005694', // Deep Professional Blue
                 'gray' => Color::Slate,
             ])
             ->font('Cairo')
@@ -59,8 +65,8 @@ class AppPanelProvider extends PanelProvider
             ->renderHook('panels::styles.after', fn () => new \Illuminate\Support\HtmlString('
                 <style>
                     :root {
-                        --primary-500: #016fb9;
-                        --primary-600: #015995;
+                        --primary-500: #005694;
+                        --primary-600: #004576;
                     }
                     /* Global RTL Fixes */
                     html[dir="rtl"] body {
@@ -70,49 +76,19 @@ class AppPanelProvider extends PanelProvider
                     html[dir="rtl"] .fi-section-header-description {
                         text-align: right !important;
                     }
-                    /* Form overlap fix */
-                    .fi-fo-field-wrp {
-                        margin-bottom: 1.5rem !important;
-                    }
-                    /* Topbar Polish */
-                    .fi-topbar {
-                        background-color: rgba(255, 255, 255, 0.8) !important;
-                        backdrop-filter: blur(12px) !important;
-                        border-bottom: 1px solid rgba(0, 0, 0, 0.05) !important;
-                    }
-                    /* Primary Button matching */
-                    .fi-btn-primary, .fi-btn-primary:hover {
-                        background-color: #016fb9 !important;
-                        border-radius: 0.5rem !important;
-                    }
-                    /* Brand name color */
-                    .fi-brand, .fi-brand * {
-                        color: #016fb9 !important;
-                        font-weight: 800 !important;
-                        letter-spacing: -0.025em;
-                    }
-                    /* Topbar Icons & Text Clarity */
-                    .fi-topbar-item-label, .fi-topbar-item-icon {
-                        color: #475569 !important;
-                    }
-                    /* Sidebar polish */
+                     /* Improved Sidebar */
                     .fi-sidebar {
                         background-color: #f8fafc !important;
-                        border-inline-end: 1px solid rgba(0, 0, 0, 0.05) !important;
+                        border-inline-end: 1px solid rgba(0,0,0,0.08) !important;
                     }
-                    /* Sidebar Active Item */
-                    .fi-sidebar-item-active {
-                        background-color: rgba(1, 111, 185, 0.1) !important;
-                        border-radius: 0.5rem !important;
+                     .fi-sidebar-item-active {
+                        background-color: rgba(0, 86, 148, 0.08) !important;
+                        border-radius: 0.75rem !important;
                     }
-                    .fi-sidebar-item-active .fi-sidebar-item-label,
-                    .fi-sidebar-item-active .fi-sidebar-item-icon {
-                        color: #016fb9 !important;
-                    }
-                    /* Forms & Inputs focus color */
-                    input:focus, select:focus, textarea:focus {
-                        border-color: #016fb9 !important;
-                        --tw-ring-color: #016fb9 !important;
+                    /* Typography */
+                    .fi-header-heading {
+                        color: #1e293b !important;
+                        font-weight: 800 !important;
                     }
                 </style>
             '));

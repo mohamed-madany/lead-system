@@ -15,8 +15,8 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Lead extends Model
 {
-    use HasFactory, SoftDeletes, \App\Traits\BelongsToTenant;
-    
+    use \App\Traits\BelongsToTenant, HasFactory, SoftDeletes;
+
     protected static function newFactory()
     {
         return \Database\Factories\LeadFactory::new();
@@ -263,6 +263,16 @@ class Lead extends Model
     public function interactions(): HasMany
     {
         return $this->hasMany(LeadInteraction::class)->orderByDesc('created_at');
+    }
+
+    /**
+     * Multiple assignees using pivot
+     */
+    public function assignees(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
+    {
+        return $this->belongsToMany(User::class, 'lead_user')
+            ->withPivot('role')
+            ->withTimestamps();
     }
 
     // ==================== Query Scopes ====================

@@ -1,8 +1,7 @@
 <?php
 
 namespace App\Providers\Filament;
-use App\Filament\Pages\Tenancy\RegisterTenant;
-use App\Models\Tenant;
+
 use Filament\Http\Middleware\Authenticate;
 use Filament\Http\Middleware\AuthenticateSession;
 use Filament\Http\Middleware\DisableBladeIconComponents;
@@ -12,7 +11,6 @@ use Filament\Panel;
 use Filament\PanelProvider;
 use Filament\Support\Colors\Color;
 use Filament\Widgets;
-use Filament\Widgets\FilamentInfoWidget;
 use Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse;
 use Illuminate\Cookie\Middleware\EncryptCookies;
 use Illuminate\Foundation\Http\Middleware\VerifyCsrfToken;
@@ -33,8 +31,15 @@ class AdminPanelProvider extends PanelProvider
             ->registration(\App\Filament\Pages\Auth\Register::class) // تفعيل صفحة التسجيل للمستخدمين
             ->tenant(\App\Models\Tenant::class, slugAttribute: 'slug') // تفعيل نظام الـ Multi-tenancy
             ->tenantRegistration(\App\Filament\Pages\Tenancy\RegisterTenant::class)
+            ->userMenuItems([
+                'super_admin' => \Filament\Navigation\MenuItem::make()
+                    ->label('لوحة الإدارة العليا')
+                    ->url('/super-admin')
+                    ->icon('heroicon-o-shield-check')
+                    ->visible(fn (): bool => auth()->user()?->is_platform_admin ?? false),
+            ])
             ->colors([
-                'primary' => '#016fb9',
+                'primary' => '#005694', // Deep Professional Blue
                 'secondary' => '#FF9505',
                 'gray' => Color::Slate,
             ])
@@ -66,64 +71,32 @@ class AdminPanelProvider extends PanelProvider
             ->renderHook('panels::styles.after', fn () => new \Illuminate\Support\HtmlString('
                 <style>
                     :root {
-                        --primary-500: #016fb9;
-                        --primary-600: #015995;
+                        --primary-500: #005694;
+                        --primary-600: #004576;
                     }
                     /* Global RTL Fixes */
                     html[dir="rtl"] .fi-section-header-heading,
                     html[dir="rtl"] .fi-section-header-description {
                         text-align: right !important;
                     }
-                    /* Form overlap fix */
-                    .fi-fo-field-wrp {
-                        margin-bottom: 1.5rem !important;
-                    }
-                    .fi-fo-component-ctn {
-                        gap: 1.5rem !important;
-                    }
-                    /* Topbar Polish */
-                    .fi-topbar {
-                        background-color: rgba(255, 255, 255, 0.7) !important;
-                        backdrop-filter: blur(12px) !important;
-                        border-bottom: 1px solid rgba(0, 0, 0, 0.05) !important;
-                    }
-                    .dark .fi-topbar {
-                        background-color: rgba(15, 23, 42, 0.7) !important;
-                        border-bottom: 1px solid rgba(255, 255, 255, 0.05) !important;
-                    }
-                    /* Primary Button matching */
-                    .fi-btn-primary, .fi-btn-primary:hover {
-                        background-color: #016fb9 !important;
-                        border-radius: 0.5rem !important;
-                    }
-                    /* Brand name color */
-                    .fi-brand {
-                        color: #016fb9 !important;
-                        font-weight: 800 !important;
-                        letter-spacing: -0.025em;
-                    }
-                    /* Sidebar polish */
+                    /* Improved Sidebar */
                     .fi-sidebar {
                         background-color: #f8fafc !important;
-                        border-inline-end: 1px solid rgba(0, 0, 0, 0.05) !important;
+                        border-inline-end: 1px solid rgba(0,0,0,0.08) !important;
                     }
-                    .dark .fi-sidebar {
-                        background-color: #020617 !important;
-                        border-inline-end: 1px solid rgba(255, 255, 255, 0.05) !important;
+                     .fi-sidebar-item-active {
+                        background-color: rgba(0, 86, 148, 0.08) !important;
+                        border-radius: 0.75rem !important;
                     }
-                    /* Sidebar Active Item */
-                    .fi-sidebar-item-active {
-                        background-color: rgba(1, 111, 185, 0.08) !important;
-                        border-radius: 0.5rem !important;
+                    /* Soften Borders & Shadows */
+                    .fi-section {
+                        border-radius: 1rem !important;
+                        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03) !important;
                     }
-                    .fi-sidebar-item-active .fi-sidebar-item-label,
-                    .fi-sidebar-item-active .fi-sidebar-item-icon {
-                        color: #016fb9 !important;
-                    }
-                    /* Forms & Inputs focus color */
-                    input:focus, select:focus, textarea:focus {
-                        border-color: #016fb9 !important;
-                        --tw-ring-color: #016fb9 !important;
+                    /* Header Typography */
+                    h1, h2, h3, h4, .fi-header-heading {
+                        color: #1e293b !important;
+                        font-weight: 800 !important;
                     }
                 </style>
             '));

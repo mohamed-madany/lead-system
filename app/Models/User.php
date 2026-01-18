@@ -2,23 +2,23 @@
 
 namespace App\Models;
 
+use App\Domain\Lead\Models\Lead;
+use App\Domain\Lead\Models\LeadActivity;
 use Filament\Models\Contracts\FilamentUser;
 use Filament\Models\Contracts\HasTenants;
 use Filament\Panel;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Foundation\Auth\User as Authenticatable;
-use Illuminate\Notifications\Notifiable;
-use Spatie\Permission\Traits\HasRoles;
-use Illuminate\Support\Collection;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
-use Illuminate\Database\Eloquent\Model;
-use App\Domain\Lead\Models\Lead;
-use App\Domain\Lead\Models\LeadActivity;
+use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Collection;
+use Spatie\Permission\Traits\HasRoles;
 
 class User extends Authenticatable implements FilamentUser, HasTenants
 {
-    use HasFactory, Notifiable, HasRoles;
+    use HasFactory, HasRoles, Notifiable;
 
     /**
      * The attributes that are mass assignable.
@@ -67,7 +67,7 @@ class User extends Authenticatable implements FilamentUser, HasTenants
         }
 
         if ($panel->getId() === 'admin') {
-            return true; 
+            return true;
         }
 
         return false;
@@ -88,7 +88,7 @@ class User extends Authenticatable implements FilamentUser, HasTenants
 
     public function canAccessTenant(Model $tenant): bool
     {
-        return (int)$this->tenant_id === (int)$tenant->id;
+        return (int) $this->tenant_id === (int) $tenant->id;
     }
 
     public function isAdmin(): bool
@@ -113,6 +113,7 @@ class User extends Authenticatable implements FilamentUser, HasTenants
         if (count($words) >= 2) {
             return strtoupper(substr($words[0], 0, 1).substr($words[1], 0, 1));
         }
+
         return strtoupper(substr($this->name, 0, 2));
     }
 
@@ -124,5 +125,12 @@ class User extends Authenticatable implements FilamentUser, HasTenants
     public function activities(): HasMany
     {
         return $this->hasMany(LeadActivity::class, 'user_id');
+    }
+
+    public function multipleLeads(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
+    {
+        return $this->belongsToMany(Lead::class, 'lead_user')
+            ->withPivot('role')
+            ->withTimestamps();
     }
 }

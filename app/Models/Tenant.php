@@ -50,4 +50,24 @@ class Tenant extends Model
     {
         return $this->hasMany(\App\Domain\Lead\Models\Lead::class);
     }
+
+    public function subscriptions(): HasMany
+    {
+        return $this->hasMany(Subscription::class);
+    }
+
+    public function activeSubscription(): \Illuminate\Database\Eloquent\Relations\HasOne
+    {
+        return $this->hasOne(Subscription::class)
+            ->where('status', 'active')
+            ->where(function ($query) {
+                $query->whereNull('ends_at')->orWhere('ends_at', '>', now());
+            })
+            ->latestOfMany();
+    }
+
+    public function automations(): HasMany
+    {
+        return $this->hasMany(Automation::class);
+    }
 }
