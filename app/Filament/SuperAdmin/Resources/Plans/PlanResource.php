@@ -50,7 +50,7 @@ class PlanResource extends Resource
                     ->required()
                     ->numeric()
                     ->default(0.0)
-                    ->prefix('$'),
+                    ->suffix('ج.م'),
                 TextInput::make('max_leads')
                     ->label('الحد الأقصى للعملاء')
                     ->required()
@@ -79,7 +79,7 @@ class PlanResource extends Resource
                 TextEntry::make('slug')->label('المعرف الرابط'),
                 TextEntry::make('price')
                     ->label('السعر')
-                    ->money(),
+                    ->money('EGP'),
                 TextEntry::make('max_leads')
                     ->label('حد العملاء')
                     ->numeric(),
@@ -117,7 +117,7 @@ class PlanResource extends Resource
                     ->searchable(),
                 TextColumn::make('price')
                     ->label('السعر')
-                    ->money()
+                    ->money('EGP')
                     ->sortable(),
                 TextColumn::make('max_leads')
                     ->label('العملاء')

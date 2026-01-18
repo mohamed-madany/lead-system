@@ -9,36 +9,39 @@ class PlanSeeder extends Seeder
 {
     public function run() 
     {
-        Plan::firstOrCreate([
+        Plan::updateOrCreate([
             'slug' => 'starter'
         ], [
-            'name' => 'Starter',
-            'price' => 49.00,
-            'max_leads' => 100,
+            'name' => 'باقة البداية',
+            'price' => 1500.00,
+            'max_leads' => 150,
             'max_users' => 1,
-            'features' => ['basic_support', 'web_form']
+            'features' => ['إدارة حتى 150 عميل / شهر', 'موظف مبيعات واحد', 'ربط فيسبوك وواتساب'],
+            'is_active' => true,
         ]);
         
-        Plan::firstOrCreate([
+        Plan::updateOrCreate([
             'slug' => 'growth'
         ], [
-            'name' => 'Growth',
-            'price' => 99.00,
-            'max_leads' => 500,
+            'name' => 'باقة النمو',
+            'price' => 3000.00,
+            'max_leads' => 750,
             'max_users' => 5,
-            'features' => ['priority_support', 'web_form', 'webhooks']
+            'features' => ['إدارة حتى 750 عميل / شهر', '5 موظفين مبيعات', 'نظام التقييم والفلترة الذكي', 'تقارير أداء تفصيلية'],
+            'is_active' => true,
         ]);
         
-        Plan::firstOrCreate([
+        Plan::updateOrCreate([
             'slug' => 'pro'
         ], [
-            'name' => 'Professional',
-            'price' => 199.00,
-            'max_leads' => 99999,
-            'max_users' => 10,
-            'features' => ['dedicated_support', 'web_form', 'webhooks', 'api_access']
+            'name' => 'الباقة الاحترافية',
+            'price' => 6000.00,
+            'max_leads' => 999999,
+            'max_users' => 100,
+            'features' => ['عملاء مهتمين غير محدودين', 'فريق غير محدود', 'دعم فني VIP مخصص', 'ربط API وتطوير مخصص'],
+            'is_active' => true,
         ]);
         
-        $this->command->info('✅ Plans seeded successfully.');
+        $this->command->info('✅ Plans updated to Arabic names and EGP prices.');
     }
 }

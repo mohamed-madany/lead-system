@@ -36,7 +36,7 @@ class RegisterTenant extends BaseRegisterTenant
                     ->default(fn() => Plan::where('slug', 'starter')->first()?->id)
                     ->descriptions(
                         Plan::where('is_active', true)->get()->mapWithKeys(function ($plan) {
-                            return [$plan->id => "{$plan->price} ريال / شهر - (حد أقصى {$plan->max_leads} عميل)"];
+                            return [$plan->id => "{$plan->price} ج.م / شهر - (حد أقصى {$plan->max_leads} عميل)"];
                         })->toArray()
                     )
                     ->required(),
