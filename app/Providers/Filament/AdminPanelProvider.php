@@ -28,6 +28,7 @@ class AdminPanelProvider extends PanelProvider
             ->default()
             ->id('admin')
             ->path('admin')
+            ->darkMode(false)
             ->login(\App\Filament\Pages\Auth\Login::class)
             ->registration(\App\Filament\Pages\Auth\Register::class) // تفعيل صفحة التسجيل للمستخدمين
             ->tenant(\App\Models\Tenant::class, slugAttribute: 'slug') // تفعيل نظام الـ Multi-tenancy

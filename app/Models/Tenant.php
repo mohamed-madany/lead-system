@@ -23,12 +23,17 @@ class Tenant extends Model
         'facebook_access_token',
         'facebook_webhook_verify_token',
         'whatsapp_phone_number_id',
+        'n8n_webhook_url',
+        'ai_classification_enabled',
+        'telegram_bot_token',
+        'telegram_chat_id',
         'settings',
     ];
 
     protected $casts = [
         'settings' => 'array',
         'trial_ends_at' => 'date',
+        'ai_classification_enabled' => 'boolean',
     ];
 
     public function plan(): BelongsTo

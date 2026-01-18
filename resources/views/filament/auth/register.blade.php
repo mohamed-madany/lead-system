@@ -88,9 +88,11 @@
         }
     </style>
 
-    <form wire:submit="register">
+    <form wire:submit="register" class="space-y-6">
         {{ $this->form }}
 
-        <x-filament::actions :actions="$this->getFormActions()" :full-width="$this->hasFullWidthFormActions()" class="mt-6" />
+        <x-filament::button type="submit" class="w-full">
+            إنشاء حساب جديد
+        </x-filament::button>
     </form>
 </x-filament-panels::page.simple>

@@ -24,7 +24,8 @@ class AppPanelProvider extends PanelProvider
     {
         return $panel
             ->id('app')
-            ->path('manage')
+            ->path('super-admin')
+            ->darkMode(false)
             ->colors([
                 'primary' => '#016fb9',
                 'gray' => Color::Slate,
@@ -79,10 +80,6 @@ class AppPanelProvider extends PanelProvider
                         backdrop-filter: blur(12px) !important;
                         border-bottom: 1px solid rgba(0, 0, 0, 0.05) !important;
                     }
-                    .dark .fi-topbar {
-                        background-color: rgba(15, 23, 42, 0.8) !important;
-                        border-bottom: 1px solid rgba(255, 255, 255, 0.1) !important;
-                    }
                     /* Primary Button matching */
                     .fi-btn-primary, .fi-btn-primary:hover {
                         background-color: #016fb9 !important;
@@ -98,17 +95,10 @@ class AppPanelProvider extends PanelProvider
                     .fi-topbar-item-label, .fi-topbar-item-icon {
                         color: #475569 !important;
                     }
-                    .dark .fi-topbar-item-label, .dark .fi-topbar-item-icon {
-                        color: #cbd5e1 !important;
-                    }
                     /* Sidebar polish */
                     .fi-sidebar {
                         background-color: #f8fafc !important;
                         border-inline-end: 1px solid rgba(0, 0, 0, 0.05) !important;
-                    }
-                    .dark .fi-sidebar {
-                        background-color: #020617 !important;
-                        border-inline-end: 1px solid rgba(255, 255, 255, 0.05) !important;
                     }
                     /* Sidebar Active Item */
                     .fi-sidebar-item-active {

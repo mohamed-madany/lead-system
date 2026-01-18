@@ -53,10 +53,10 @@ class RegisterTenant extends BaseRegisterTenant
             'trial_ends_at' => now()->addDays(14),
         ]);
 
-        $tenant->users()->attach(Auth::user());
+        $tenant->users()->save(Auth::user());
         
         // تحديث المستخدم ليكون هو الـ Admin الافتراضي لهذه الشركة
-        Auth::user()->update(['tenant_id' => $tenant->id, 'role' => 'admin']);
+        Auth::user()->update(['role' => 'admin']);
 
         return $tenant;
     }

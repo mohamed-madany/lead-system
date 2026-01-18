@@ -12,8 +12,12 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('tenants', function (Blueprint $table) {
-            $table->text('facebook_access_token')->nullable()->after('facebook_page_id');
-            $table->string('facebook_webhook_verify_token')->nullable()->after('facebook_access_token');
+            if (!Schema::hasColumn('tenants', 'facebook_access_token')) {
+                $table->text('facebook_access_token')->nullable()->after('facebook_page_id');
+            }
+            if (!Schema::hasColumn('tenants', 'facebook_webhook_verify_token')) {
+                $table->string('facebook_webhook_verify_token')->nullable()->after('facebook_access_token');
+            }
         });
     }
 

@@ -33,12 +33,12 @@ return new class extends Migration
             $table->foreignId('plan_id')->constrained()->default(1); // Default to first plan
             $table->string('status')->default('active'); // active, suspended, trial
             $table->date('trial_ends_at')->nullable();
-            
+
             // Integrations Config
             $table->string('facebook_page_id')->nullable()->index();
             $table->string('whatsapp_phone_number_id')->nullable()->index();
             $table->json('settings')->nullable(); // For integration tokens, etc.
-            
+
             $table->timestamps();
             $table->softDeletes();
         });
@@ -53,7 +53,7 @@ return new class extends Migration
         Schema::table('leads', function (Blueprint $table) {
             $table->foreignId('tenant_id')->nullable()->after('id')->constrained()->cascadeOnDelete();
         });
-        
+
         // 5. Update Activity/Interaction Tables (Optional but recommended for strict isolation)
         Schema::table('lead_activities', function (Blueprint $table) {
             $table->foreignId('tenant_id')->nullable()->after('id')->constrained()->cascadeOnDelete();
