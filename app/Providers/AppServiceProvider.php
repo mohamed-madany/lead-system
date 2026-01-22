@@ -26,6 +26,8 @@ class AppServiceProvider extends ServiceProvider
             \Illuminate\Support\Facades\URL::forceScheme('https');
         }
 
+        app()->setLocale('ar');
+
         Event::listen(
             LeadCreated::class,
             TriggerIntegrations::class
