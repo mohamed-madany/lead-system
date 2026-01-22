@@ -109,19 +109,6 @@
                             شاهد كيف يعمل
                         </a>
                     </div>
-
-                    <!-- Social Proof -->
-                    <div class="mt-16 flex items-center gap-4">
-                        <div class="flex -space-x-3 rtl:space-x-reverse">
-                            <img class="w-12 h-12 rounded-full border-4 border-slate-950 shadow-xl"
-                                src="https://i.pravatar.cc/150?u=1" alt="user">
-                            <img class="w-12 h-12 rounded-full border-4 border-slate-950 shadow-xl"
-                                src="https://i.pravatar.cc/150?u=2" alt="user">
-                            <img class="w-12 h-12 rounded-full border-4 border-slate-950 shadow-xl"
-                                src="https://i.pravatar.cc/150?u=3" alt="user">
-                        </div>
-                        <div class="text-slate-500 text-sm font-bold">نال ثقة +2,500 مدير مبيعات</div>
-                    </div>
                 </div>
 
                 <!-- Visual Side -->
