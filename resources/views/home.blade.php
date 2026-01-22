@@ -21,19 +21,15 @@
             }
 
             .glass-panel {
-                background: rgba(255, 255, 255, 0.03);
-                backdrop-filter: blur(12px);
-                border: 1px solid rgba(255, 255, 255, 0.08);
+                background: rgba(15, 23, 42, 0.8);
+                backdrop-filter: blur(16px);
+                border-bottom: 1px solid rgba(255, 255, 255, 0.05);
             }
 
             .hero-gradient-text {
-                background: linear-gradient(135deg, #60a5fa 0%, #3b82f6 50%, #2563eb 100%);
+                background: linear-gradient(135deg, #60a5fa 0%, #3b82f6 100%);
                 -webkit-background-clip: text;
                 -webkit-text-fill-color: transparent;
-            }
-
-            .text-glow {
-                text-shadow: 0 0 30px rgba(59, 130, 246, 0.5);
             }
 
             html {
@@ -48,24 +44,26 @@
     @endpush
 
     <!-- Modern Navigation -->
-    <nav class="fixed top-0 w-full z-50 glass-panel border-b border-white/5 py-4">
+    <nav class="fixed top-0 w-full z-50 glass-panel py-3">
         <div class="max-w-7xl mx-auto px-6 flex justify-between items-center" dir="rtl">
-            <div class="flex items-center gap-12">
-                <a href="/" class="text-2xl font-black text-white tracking-tighter">
-                    LEAD<span class="text-primary-500 italic uppercase">SFIY</span>
+            <div class="flex items-center gap-10">
+                <a href="/" class="text-xl font-black text-white tracking-tighter flex items-center gap-2">
+                    <span
+                        class="w-8 h-8 bg-primary-600 rounded-lg flex items-center justify-center text-xs italic">L</span>
+                    LEADSFIY
                 </a>
                 <div class="hidden md:flex items-center gap-8">
                     <a href="#features"
-                        class="text-slate-400 hover:text-white transition text-sm font-bold">المميزات</a>
-                    <a href="#how-it-works" class="text-slate-400 hover:text-white transition text-sm font-bold">كيف
-                        يعمل</a>
-                    <a href="#pricing" class="text-slate-400 hover:text-white transition text-sm font-bold">الأسعار</a>
+                        class="text-slate-300 hover:text-primary-400 transition text-sm font-bold">المميزات</a>
+                    <a href="#pricing"
+                        class="text-slate-300 hover:text-primary-400 transition text-sm font-bold">الأسعار</a>
                 </div>
             </div>
-            <div class="flex items-center gap-4">
-                <a href="/admin/login" class="text-white font-bold text-sm px-6 py-2">تسجيل دخول</a>
+            <div class="flex items-center gap-6">
+                <a href="/admin/login" class="text-slate-300 hover:text-white font-bold text-sm transition">تسجيل
+                    دخول</a>
                 <a href="/admin/register"
-                    class="bg-primary-600 hover:bg-primary-500 text-white font-black text-sm px-6 py-3 rounded-xl transition shadow-lg shadow-primary-500/20">ابدأ
+                    class="bg-primary-600 hover:bg-primary-700 text-white font-black text-sm px-6 py-2.5 rounded-lg transition-all active:scale-95 shadow-sm">ابدأ
                     مجاناً</a>
             </div>
         </div>
@@ -92,7 +90,7 @@
                     </div>
 
                     <h1 class="text-6xl md:text-8xl font-black text-white leading-[1.05] mb-8 tracking-tight">
-                        وداعاً لضياع <span class="hero-gradient-text text-glow">العملاء</span>
+                        وداعاً لضياع <span class="hero-gradient-text">العملاء</span>
                     </h1>
 
                     <p class="text-2xl text-slate-400 mb-12 leading-relaxed font-medium max-w-2xl">
@@ -102,12 +100,12 @@
 
                     <div class="flex flex-col sm:flex-row gap-6 justify-start">
                         <a href="/admin/register"
-                            class="group relative bg-white text-slate-950 px-12 py-6 rounded-[2rem] font-black text-2xl transition hover:scale-105 active:scale-95 flex items-center justify-center gap-4 shadow-2xl shadow-white/10">
+                            class="group relative bg-white text-slate-950 px-12 py-5 rounded-2xl font-black text-xl transition hover:bg-white/90 active:scale-95 flex items-center justify-center gap-3">
                             احصل علي حساب مجاني
                             <x-filament::icon icon="heroicon-m-sparkles" class="w-6 h-6 text-primary-600" />
                         </a>
                         <a href="#features"
-                            class="bg-slate-900/50 hover:bg-slate-900 text-white px-10 py-6 rounded-[2rem] font-bold text-xl border border-slate-800 transition backdrop-blur-md flex items-center justify-center">
+                            class="bg-slate-900/40 hover:bg-slate-900 text-white px-10 py-5 rounded-2xl font-bold text-lg border border-slate-800 transition backdrop-blur-md flex items-center justify-center">
                             شاهد كيف يعمل
                         </a>
                     </div>
