@@ -45,7 +45,7 @@ class AdminPanelProvider extends PanelProvider
             ])
             ->font('Cairo')
             ->brandName('Leadsfiy')
-            ->brandLogo(asset('assets/logo.jpg'))
+            ->brandLogo(asset('images/logo.jpg'))
             ->brandLogoHeight('3rem')
             ->discoverResources(in: app_path('Filament/Resources'), for: 'App\\Filament\\Resources')
             ->discoverPages(in: app_path('Filament/Pages'), for: 'App\\Filament\\Pages')

@@ -40,7 +40,7 @@ class AppPanelProvider extends PanelProvider
             ])
             ->font('Cairo')
             ->brandName('Leadsfiy Admin')
-            ->brandLogo(asset('assets/logo.jpg'))
+            ->brandLogo(asset('images/logo.jpg'))
             ->brandLogoHeight('3rem')
             ->discoverResources(in: app_path('Filament/SuperAdmin/Resources'), for: 'App\\Filament\\SuperAdmin\\Resources')
             ->discoverPages(in: app_path('Filament/SuperAdmin/Pages'), for: 'App\\Filament\\SuperAdmin\\Pages')

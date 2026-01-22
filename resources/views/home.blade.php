@@ -48,7 +48,7 @@
         <div class="max-w-7xl mx-auto px-6 flex justify-between items-center" dir="rtl">
             <div class="flex items-center gap-10">
                 <a href="/" class="flex items-center gap-3">
-                    <img src="{{ asset('assets/logo.jpg') }}" alt="Leadsfiy Logo"
+                    <img src="{{ asset('images/logo.jpg') }}" alt="Leadsfiy Logo"
                         class="w-10 h-10 rounded-lg object-cover">
                     <span class="text-xl font-black text-white tracking-tighter">LEADSFIY</span>
                 </a>
