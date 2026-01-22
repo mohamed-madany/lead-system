@@ -2,97 +2,111 @@
     description="نظام احترافي لإدارة تتبع العملاء المحتملين (Leads) ورفع كفاءة فريق المبيعات من خلال الأتمتة والتقارير الذكية">
 
     <!-- Hero Section -->
-    <section class="relative bg-gradient-to-br from-primary-50 via-white to-primary-50 py-20 md:py-32 overflow-hidden">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="grid md:grid-cols-2 gap-12 items-center">
+    <section class="relative min-h-[90vh] flex items-center bg-[#0f172a] overflow-hidden">
+        <!-- Background Decorations -->
+        <div class="absolute inset-0 z-0">
+            <div
+                class="absolute top-[-10%] right-[-10%] w-[500px] h-[500px] bg-primary-600/20 rounded-full blur-[120px]">
+            </div>
+            <div class="absolute bottom-[-10%] left-[-10%] w-[400px] h-[400px] bg-blue-600/10 rounded-full blur-[100px]">
+            </div>
+        </div>
+
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 w-full">
+            <div class="grid md:grid-cols-2 gap-16 items-center">
                 <!-- Hero Content -->
-                <div class="text-center md:text-right animate-fade-in-up order-2 md:order-1">
-                    <h1 class="text-4xl md:text-5xl lg:text-6xl font-extrabold text-gray-900 leading-tight mb-6 ">
-                        تحكم في كل <span class="text-primary-600">عميل مهتم</span>.. من اللحظة الأولى وحتى إتمام البيع
+                <div class="text-right animate-fade-in-up order-2 md:order-1">
+                    <div
+                        class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary-500/10 border border-primary-500/20 text-primary-400 text-sm font-bold mb-6">
+                        <span class="relative flex h-2 w-2">
+                            <span
+                                class="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary-400 opacity-75"></span>
+                            <span class="relative inline-flex rounded-full h-2 w-2 bg-primary-500"></span>
+                        </span>
+                        أذكى نظام لإدارة العملاء في الوطن العربي
+                    </div>
+
+                    <h1 class="text-5xl md:text-7xl font-black text-white leading-[1.1] mb-8">
+                        حول كل <span
+                            class="text-transparent bg-clip-text bg-gradient-to-r from-primary-400 to-blue-500">ليد</span>
+                        لصفقة رابحة مع <span class="italic">Leadsify</span>
                     </h1>
-                    <p class="text-xl text-gray-600 mb-8 leading-relaxed">
-                        حوّل الفوضى إلى نظام متكامل. اجمع بيانات عملائك من فيسبوك، واتساب، وموقعك الإلكتروني في مكان
-                        واحد، وقم بتوجيه فريق مبيعاتك للرد عليهم فوراً وباحترافية.
+
+                    <p class="text-xl text-slate-400 mb-10 leading-relaxed max-w-2xl">
+                        منصة ليدزفاي تمنحك السيطرة الكاملة على مبيعاتك. لا مزيد من البيانات المهدرة، لا مزيد من التأخير
+                        في الرد. كل شيء منظم، مؤتمت، وجاهز للنمو.
                     </p>
-                    <div class="flex flex-col sm:flex-row gap-4 justify-center md:justify-start">
+
+                    <div class="flex flex-col sm:flex-row gap-5 justify-start">
                         <a href="/admin/register"
-                            class="bg-primary-600 hover:bg-primary-700 text-white px-10 py-4 rounded-xl font-bold text-lg shadow-xl shadow-primary-500/20 transition transform hover:-translate-y-1">
-                            ابدأ تنظيم مبيعاتك الآن
+                            class="group relative bg-primary-600 hover:bg-primary-500 text-white px-10 py-5 rounded-2xl font-black text-xl transition-all shadow-2xl shadow-primary-500/25 flex items-center justify-center gap-3">
+                            ابدأ تجربتك المجانية
+                            <x-filament::icon icon="heroicon-m-arrow-left"
+                                class="w-6 h-6 transform group-hover:-translate-x-1 transition" />
                         </a>
                         <a href="#pricing"
-                            class="bg-white hover:bg-gray-50 text-gray-900 px-10 py-4 rounded-xl font-bold text-lg border-2 border-gray-100 transition shadow-sm">
-                            عرض الباقات والأسعار
+                            class="bg-slate-800/50 hover:bg-slate-800 text-white px-10 py-5 rounded-2xl font-bold text-xl border border-slate-700 transition backdrop-blur-sm flex items-center justify-center">
+                            استكشف الباقات
                         </a>
                     </div>
 
-                    <!-- Trust Indicators -->
-                    <div
-                        class="mt-12 flex flex-wrap items-center justify-center md:justify-start gap-x-8 gap-y-4 text-sm font-medium text-gray-500">
-                        <div class="flex items-center gap-2">
-                            <span class="bg-green-100 text-green-700 p-1 rounded-full"><x-filament::icon
-                                    icon="heroicon-m-check" class="w-3 h-3" /></span>
-                            <span>أتمتة كاملة للبيانات</span>
+                    <div class="mt-12 flex items-center gap-6 text-slate-500 border-t border-slate-800 pt-8">
+                        <div>
+                            <div class="text-2xl font-black text-white">5000+</div>
+                            <div class="text-sm">ليد تم إدارته</div>
                         </div>
-                        <div class="flex items-center gap-2">
-                            <span class="bg-green-100 text-green-700 p-1 rounded-full"><x-filament::icon
-                                    icon="heroicon-m-check" class="w-3 h-3" /></span>
-                            <span>لا فاقد في البيانات</span>
-                        </div>
-                        <div class="flex items-center gap-2">
-                            <span class="bg-green-100 text-green-700 p-1 rounded-full"><x-filament::icon
-                                    icon="heroicon-m-check" class="w-3 h-3" /></span>
-                            <span>تقارير أداء فورية</span>
+                        <div class="w-px h-10 bg-slate-800"></div>
+                        <div>
+                            <div class="text-2xl font-black text-white">100+</div>
+                            <div class="text-sm">شركة واثقة بنا</div>
                         </div>
                     </div>
                 </div>
 
-                <!-- Hero Illustration -->
+                <!-- Hero Image/Mockup -->
                 <div class="order-1 md:order-2">
                     <div class="relative">
+                        <!-- Decorative Frame -->
                         <div
-                            class="absolute -inset-1 bg-gradient-to-r from-primary-400 to-primary-600 rounded-[2.5rem] blur opacity-20">
+                            class="absolute -inset-4 bg-gradient-to-tr from-primary-500/30 to-blue-500/30 rounded-[3rem] blur-2xl opacity-30">
                         </div>
-                        <div class="relative bg-white rounded-[2.5rem] shadow-2xl p-8 border border-gray-100">
-                            <div class="space-y-6">
-                                <div
-                                    class="flex items-center justify-between bg-gray-50 p-5 rounded-2xl border border-gray-100 shadow-sm">
-                                    <div class="flex items-center gap-4">
-                                        <div
-                                            class="h-12 w-12 bg-primary-100 rounded-xl flex items-center justify-center">
-                                            <x-filament::icon icon="heroicon-m-user-plus"
-                                                class="w-6 h-6 text-primary-600" />
-                                        </div>
-                                        <div>
-                                            <div class="font-bold text-gray-900">أحمد محمد - عقارات</div>
-                                            <div
-                                                class="text-xs text-green-600 font-bold bg-green-50 px-2 py-0.5 rounded-full inline-block mt-1">
-                                                عميل مهتم جداً</div>
-                                        </div>
-                                    </div>
-                                    <div class="text-xs text-gray-500 font-medium">الآن</div>
-                                </div>
 
-                                <div class="bg-primary-50 p-6 rounded-2xl border border-primary-100">
-                                    <div class="flex justify-between mb-3 items-center">
-                                        <span class="font-bold text-gray-900">سرعة استجابة الفريق</span>
-                                        <span class="text-lg font-black text-primary-600">92%</span>
-                                    </div>
-                                    <div class="w-full bg-gray-200/50 rounded-full h-3">
-                                        <div class="bg-primary-600 h-3 rounded-full shadow-sm shadow-primary-500/50"
-                                            style="width: 92%"></div>
-                                    </div>
+                        <!-- Dashboard Preview Card -->
+                        <div
+                            class="relative bg-slate-900 rounded-[2.5rem] border border-slate-800 shadow-2xl overflow-hidden p-2">
+                            <div
+                                class="bg-slate-800/50 p-4 border-b border-slate-700/50 flex items-center justify-between">
+                                <div class="flex gap-1.5">
+                                    <div class="w-3 h-3 rounded-full bg-red-500/50"></div>
+                                    <div class="w-3 h-3 rounded-full bg-yellow-500/50"></div>
+                                    <div class="w-3 h-3 rounded-full bg-green-500/50"></div>
                                 </div>
-
+                                <div class="text-xs font-bold text-slate-500 tracking-widest uppercase">Leadsify
+                                    Analytics</div>
+                            </div>
+                            <div class="p-6 space-y-6">
                                 <div class="grid grid-cols-2 gap-4">
-                                    <div class="bg-blue-50/50 p-4 rounded-2xl text-center border border-blue-100">
-                                        <div class="text-3xl font-black text-blue-600 mb-1">124</div>
-                                        <div class="text-xs font-bold text-blue-700 uppercase tracking-wider">إجمالي
-                                            المهتمين</div>
+                                    <div class="bg-primary-500/10 border border-primary-500/20 p-5 rounded-3xl">
+                                        <div class="text-primary-400 text-sm font-bold mb-1">العملاء النشطون</div>
+                                        <div class="text-3xl font-black text-white">1,248</div>
                                     </div>
-                                    <div class="bg-emerald-50/50 p-4 rounded-2xl text-center border border-emerald-100">
-                                        <div class="text-3xl font-black text-emerald-600 mb-1">18</div>
-                                        <div class="text-xs font-bold text-emerald-700 uppercase tracking-wider">صفقات
-                                            مغلقة</div>
+                                    <div class="bg-emerald-500/10 border border-emerald-500/20 p-5 rounded-3xl">
+                                        <div class="text-emerald-400 text-sm font-bold mb-1">نسبة التحويل</div>
+                                        <div class="text-3xl font-black text-white">24%</div>
+                                    </div>
+                                </div>
+                                <div class="bg-slate-800/30 border border-slate-700/50 p-6 rounded-3xl">
+                                    <div class="flex justify-between items-center mb-4">
+                                        <div class="font-bold text-white">أداء فريق المبيعات</div>
+                                        <div class="text-primary-500 font-black">+14%</div>
+                                    </div>
+                                    <div class="space-y-3">
+                                        <div class="h-2 bg-slate-800 rounded-full w-full overflow-hidden">
+                                            <div class="h-full bg-primary-500 w-[70%]"></div>
+                                        </div>
+                                        <div class="h-2 bg-slate-800 rounded-full w-full overflow-hidden">
+                                            <div class="h-full bg-blue-500 w-[55%]"></div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -190,10 +204,12 @@
                         <span class="w-2 h-8 bg-primary-600 rounded-full group-hover:h-12 transition-all"></span>
                         مراكز التدريب
                     </div>
-                    <p class="text-gray-600 leading-relaxed font-medium">إدارة المسجلين في الكورسات وربطهم بعمليات الدفع
+                    <p class="text-gray-600 leading-relaxed font-medium">إدارة المسجلين في الكورسات وربطهم بعمليات
+                        الدفع
                         والمتابعة، مع أتمتة إرسال تفاصيل المحاضرات والـ Location.</p>
                 </div>
-                <div class="bg-white p-8 rounded-3xl shadow-sm border border-gray-100 hover:shadow-lg transition group">
+                <div
+                    class="bg-white p-8 rounded-3xl shadow-sm border border-gray-100 hover:shadow-lg transition group">
                     <div class="text-primary-600 font-black text-xl mb-4 flex items-center gap-3">
                         <span class="w-2 h-8 bg-primary-600 rounded-full group-hover:h-12 transition-all"></span>
                         شركات الخدمات

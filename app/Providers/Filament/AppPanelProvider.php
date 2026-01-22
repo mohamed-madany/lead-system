@@ -2,6 +2,7 @@
 
 namespace App\Providers\Filament;
 
+use App\Filament\Pages\Auth\Login;
 use Filament\Http\Middleware\Authenticate;
 use Filament\Http\Middleware\AuthenticateSession;
 use Filament\Http\Middleware\DisableBladeIconComponents;
@@ -25,6 +26,7 @@ class AppPanelProvider extends PanelProvider
         return $panel
             ->id('app')
             ->path('super-admin')
+            ->login(Login::class)
             ->darkMode(false)
             ->userMenuItems([
                 'dashboard' => \Filament\Navigation\MenuItem::make()
@@ -37,7 +39,7 @@ class AppPanelProvider extends PanelProvider
                 'gray' => Color::Slate,
             ])
             ->font('Cairo')
-            ->brandName('نظام إدارة العملاء - الإدارة العليا')
+            ->brandName('Leadsify Admin')
             ->discoverResources(in: app_path('Filament/SuperAdmin/Resources'), for: 'App\\Filament\\SuperAdmin\\Resources')
             ->discoverPages(in: app_path('Filament/SuperAdmin/Pages'), for: 'App\\Filament\\SuperAdmin\\Pages')
             ->pages([

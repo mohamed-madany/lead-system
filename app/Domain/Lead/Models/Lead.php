@@ -2,6 +2,7 @@
 
 namespace App\Domain\Lead\Models;
 
+use App\Domain\Lead\Enums\ActivityType;
 use App\Domain\Lead\Enums\LeadSource;
 use App\Domain\Lead\Enums\LeadStatus;
 use App\Domain\Lead\Enums\LeadType;
@@ -12,14 +13,23 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Database\Factories\LeadFactory;
+use App\Traits\BelongsToTenant;
+use App\Domain\Lead\Events\LeadCreated;
+use App\Domain\Lead\Events\LeadLost;
+use App\Domain\Lead\Events\LeadQualified;
+use App\Domain\Lead\Events\LeadScored;
+use App\Domain\Lead\Events\LeadUpdated;
+use App\Domain\Lead\Events\LeadWon;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class Lead extends Model
 {
-    use \App\Traits\BelongsToTenant, HasFactory, SoftDeletes;
+    use BelongsToTenant, HasFactory, SoftDeletes;
 
     protected static function newFactory()
     {
-        return \Database\Factories\LeadFactory::new();
+        return LeadFactory::new();
     }
 
     protected $fillable = [
@@ -64,8 +74,8 @@ class Lead extends Model
     ];
 
     protected $dispatchesEvents = [
-        'created' => \App\Domain\Lead\Events\LeadCreated::class,
-        'updated' => \App\Domain\Lead\Events\LeadUpdated::class,
+        'created' => LeadCreated::class,
+        'updated' => LeadUpdated::class,
     ];
 
     // ==================== Business Methods ====================
@@ -80,7 +90,7 @@ class Lead extends Model
             'qualified_at' => now(),
         ]);
 
-        event(new \App\Domain\Lead\Events\LeadQualified($this));
+        event(new LeadQualified($this));
     }
 
     /**
@@ -95,7 +105,7 @@ class Lead extends Model
             'probability_percentage' => 100,
         ]);
 
-        event(new \App\Domain\Lead\Events\LeadWon($this));
+        event(new LeadWon($this));
     }
 
     /**
@@ -115,7 +125,7 @@ class Lead extends Model
             'probability_percentage' => 0,
         ]);
 
-        event(new \App\Domain\Lead\Events\LeadLost($this));
+        event(new LeadLost($this));
     }
 
     /**
@@ -153,7 +163,7 @@ class Lead extends Model
 
         // Log activity
         $this->recordActivity(
-            \App\Domain\Lead\Enums\ActivityType::ASSIGNMENT,
+            ActivityType::ASSIGNMENT,
             "Lead assigned to user ID: {$userId}",
             [
                 'previous_assigned_to' => $previousAssignedTo,
@@ -176,7 +186,7 @@ class Lead extends Model
 
         // Log activity
         $this->recordActivity(
-            \App\Domain\Lead\Enums\ActivityType::SCORE_UPDATE,
+            ActivityType::SCORE_UPDATE,
             "Score updated from {$oldScore} to {$newScore}",
             [
                 'old_score' => $oldScore,
@@ -185,19 +195,19 @@ class Lead extends Model
             ]
         );
 
-        event(new \App\Domain\Lead\Events\LeadScored($this));
+        event(new LeadScored($this));
     }
 
     /**
      * Record an activity for this lead
      */
     public function recordActivity(
-        \App\Domain\Lead\Enums\ActivityType|string $type,
+        ActivityType|string $type,
         string $description,
         array $metadata = []
     ): LeadActivity {
         return $this->activities()->create([
-            'activity_type' => $type instanceof \App\Domain\Lead\Enums\ActivityType ? $type->value : $type,
+            'activity_type' => $type instanceof ActivityType ? $type->value : $type,
             'description' => $description,
             'metadata' => $metadata,
             'user_id' => auth()->id(),
@@ -268,7 +278,7 @@ class Lead extends Model
     /**
      * Multiple assignees using pivot
      */
-    public function assignees(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
+    public function assignees(): BelongsToMany
     {
         return $this->belongsToMany(User::class, 'lead_user')
             ->withPivot('role')

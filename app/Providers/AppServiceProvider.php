@@ -1,9 +1,10 @@
 <?php
 
 namespace App\Providers;
-use Illuminate\Support\Facades\Event;
+
 use App\Domain\Lead\Events\LeadCreated;
 use App\Domain\Lead\Listeners\TriggerIntegrations;
+use Illuminate\Support\Facades\Event;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider

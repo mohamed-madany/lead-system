@@ -240,6 +240,17 @@ class LeadResource extends Resource
                     ->badge()
                     ->toggleable(),
 
+                Tables\Columns\TextColumn::make('lead_type')
+                    ->label('نوع العميل')
+                    ->badge()
+                    ->color(fn (LeadType $state): string => match ($state) {
+                        LeadType::HOT => 'danger',
+                        LeadType::WARM => 'warning',
+                        LeadType::COLD => 'info',
+                        default => 'gray',
+                    })
+                    ->toggleable(),
+
                 Tables\Columns\TextColumn::make('assignedUser.name')
                     ->label('الموظف المسؤول')
                     ->default('غير معين')
