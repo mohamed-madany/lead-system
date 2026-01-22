@@ -21,9 +21,9 @@ class DatabaseSeeder extends Seeder
         ]);
 
         $this->command->info('');
-        $this->command->info('🎉 Leadsify seeded successfully!');
+        $this->command->info('🎉 Leadsfiy seeded successfully!');
         $this->command->info('📧 You can login with:');
-        $this->command->info('   Email: admin@leadsify.com');
+        $this->command->info('   Email: admin@leadsfiy.com');
         $this->command->info('   Password: password');
     }
 }

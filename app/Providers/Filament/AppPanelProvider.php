@@ -39,7 +39,7 @@ class AppPanelProvider extends PanelProvider
                 'gray' => Color::Slate,
             ])
             ->font('Cairo')
-            ->brandName('Leadsify Admin')
+            ->brandName('Leadsfiy Admin')
             ->discoverResources(in: app_path('Filament/SuperAdmin/Resources'), for: 'App\\Filament\\SuperAdmin\\Resources')
             ->discoverPages(in: app_path('Filament/SuperAdmin/Pages'), for: 'App\\Filament\\SuperAdmin\\Pages')
             ->pages([
