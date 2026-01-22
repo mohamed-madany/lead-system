@@ -12,11 +12,11 @@ class PlanSeeder extends Seeder
         Plan::updateOrCreate([
             'slug' => 'starter'
         ], [
-            'name' => 'باقة البداية',
-            'price' => 1500.00,
-            'max_leads' => 150,
+            'name' => 'الباقة الأساسية',
+            'price' => 400.00,
+            'max_leads' => 100,
             'max_users' => 1,
-            'features' => ['إدارة حتى 150 عميل / شهر', 'موظف مبيعات واحد', 'ربط فيسبوك وواتساب'],
+            'features' => ['إدارة حتى 100 ليد / شهر', 'موظف مبيعات واحد', 'أتمتة فيسبوك وواتساب'],
             'is_active' => true,
         ]);
         
@@ -24,10 +24,10 @@ class PlanSeeder extends Seeder
             'slug' => 'growth'
         ], [
             'name' => 'باقة النمو',
-            'price' => 3000.00,
-            'max_leads' => 750,
+            'price' => 800.00,
+            'max_leads' => 500,
             'max_users' => 5,
-            'features' => ['إدارة حتى 750 عميل / شهر', '5 موظفين مبيعات', 'نظام التقييم والفلترة الذكي', 'تقارير أداء تفصيلية'],
+            'features' => ['إدارة حتى 500 ليد / شهر', '5 موظفين مبيعات', 'تقييم ذكي للعملاء', 'تقارير أداء'],
             'is_active' => true,
         ]);
         
@@ -35,10 +35,10 @@ class PlanSeeder extends Seeder
             'slug' => 'pro'
         ], [
             'name' => 'الباقة الاحترافية',
-            'price' => 6000.00,
-            'max_leads' => 999999,
-            'max_users' => 100,
-            'features' => ['عملاء مهتمين غير محدودين', 'فريق غير محدود', 'دعم فني VIP مخصص', 'ربط API وتطوير مخصص'],
+            'price' => 1500.00,
+            'max_leads' => 9999,
+            'max_users' => 20,
+            'features' => ['عملاء غير محدودين', 'فريق حتى 20 موظف', 'دعم مخصص 24/7', 'ربط خارجي (API)'],
             'is_active' => true,
         ]);
         

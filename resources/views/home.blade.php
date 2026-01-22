@@ -47,10 +47,10 @@
     <nav class="fixed top-0 w-full z-50 glass-panel py-3">
         <div class="max-w-7xl mx-auto px-6 flex justify-between items-center" dir="rtl">
             <div class="flex items-center gap-10">
-                <a href="/" class="text-xl font-black text-white tracking-tighter flex items-center gap-2">
-                    <span
-                        class="w-8 h-8 bg-primary-600 rounded-lg flex items-center justify-center text-xs italic">L</span>
-                    LEADSFIY
+                <a href="/" class="flex items-center gap-3">
+                    <img src="{{ asset('assets/logo.jpg') }}" alt="Leadsfiy Logo"
+                        class="w-10 h-10 rounded-lg object-cover">
+                    <span class="text-xl font-black text-white tracking-tighter">LEADSFIY</span>
                 </a>
                 <div class="hidden md:flex items-center gap-8">
                     <a href="#features"
@@ -233,6 +233,94 @@
                     <h3 class="text-2xl font-black text-white mb-4">التحليلات التنبؤية</h3>
                     <p class="text-slate-400 leading-relaxed font-medium">لا نقدم أرقاماً فقط، بل نقدم رؤى مستقبلية.
                         اعرف مبيعاتك المتوقعة للشهر القادم بناءً على حجم البيانات الحالية.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pricing Section -->
+    <section id="pricing" class="py-32 bg-[#020617]" dir="rtl">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="text-center mb-20">
+                <h2 class="text-4xl md:text-6xl font-black text-white mb-6">استثمار بسيط.. لنمو هائل</h2>
+                <p class="text-xl text-slate-400 font-medium italic">باقات مرنة تبدأ من 400 ج.م فقط (حوالي 10$)</p>
+            </div>
+
+            <div class="grid md:grid-cols-3 gap-8">
+                <!-- Basic -->
+                <div
+                    class="glass-panel p-10 rounded-[2.5rem] border border-white/5 flex flex-col group hover:border-primary-500/50 transition duration-500">
+                    <h3 class="text-xl font-bold text-slate-400 mb-4">الباقة الأساسية</h3>
+                    <div class="mb-8">
+                        <span class="text-5xl font-black text-white">400</span>
+                        <span class="text-slate-500 font-bold mr-2">ج.م / شهرياً</span>
+                    </div>
+                    <ul class="space-y-4 mb-10 flex-1">
+                        <li class="flex items-center gap-3 text-slate-300">
+                            <x-filament::icon icon="heroicon-m-check-badge" class="w-5 h-5 text-primary-500" />
+                            <span>100 ليد / شهرياً</span>
+                        </li>
+                        <li class="flex items-center gap-3 text-slate-300">
+                            <x-filament::icon icon="heroicon-m-check-badge" class="w-5 h-5 text-primary-500" />
+                            <span>موظف مبيعات واحد</span>
+                        </li>
+                    </ul>
+                    <a href="/admin/register"
+                        class="w-full py-4 rounded-2xl bg-white/5 text-white font-bold text-center group-hover:bg-white group-hover:text-black transition duration-300">ابدأ
+                        الآن</a>
+                </div>
+
+                <!-- Growth -->
+                <div
+                    class="glass-panel p-10 rounded-[2.5rem] border-2 border-primary-600 flex flex-col relative transform scale-105 shadow-2xl shadow-primary-600/10">
+                    <div
+                        class="absolute -top-4 left-1/2 -translate-x-1/2 bg-primary-600 text-white text-xs font-black px-4 py-1 rounded-full">
+                        الأكثر طلباً</div>
+                    <h3 class="text-xl font-bold text-primary-400 mb-4">باقة النمو</h3>
+                    <div class="mb-8">
+                        <span class="text-5xl font-black text-white">800</span>
+                        <span class="text-slate-500 font-bold mr-2">ج.م / شهرياً</span>
+                    </div>
+                    <ul class="space-y-4 mb-10 flex-1">
+                        <li class="flex items-center gap-3 text-slate-300">
+                            <x-filament::icon icon="heroicon-m-check-badge" class="w-5 h-5 text-primary-500" />
+                            <span>500 ليد / شهرياً</span>
+                        </li>
+                        <li class="flex items-center gap-3 text-slate-300">
+                            <x-filament::icon icon="heroicon-m-check-badge" class="w-5 h-5 text-primary-500" />
+                            <span>5 موظفين مبيعات</span>
+                        </li>
+                        <li class="flex items-center gap-3 text-slate-300">
+                            <x-filament::icon icon="heroicon-m-check-badge" class="w-5 h-5 text-primary-500" />
+                            <span>التقييم الذكي للعملاء</span>
+                        </li>
+                    </ul>
+                    <a href="/admin/register"
+                        class="w-full py-4 rounded-2xl bg-primary-600 text-white font-bold text-center hover:bg-primary-500 transition shadow-xl shadow-primary-600/20">اشترك
+                        الآن</a>
+                </div>
+
+                <!-- Pro -->
+                <div
+                    class="glass-panel p-10 rounded-[2.5rem] border border-white/5 flex flex-col group hover:border-emerald-500/50 transition duration-500">
+                    <h3 class="text-xl font-bold text-slate-400 mb-4">الباقة الاحترافية</h3>
+                    <div class="mb-8">
+                        <span class="text-5xl font-black text-white">1500</span>
+                        <span class="text-slate-500 font-bold mr-2">ج.م / شهرياً</span>
+                    </div>
+                    <ul class="space-y-4 mb-10 flex-1">
+                        <li class="flex items-center gap-3 text-slate-300">
+                            <x-filament::icon icon="heroicon-m-check-badge" class="w-5 h-5 text-emerald-500" />
+                            <span>ليدات غير محدودة</span>
+                        </li>
+                        <li class="flex items-center gap-3 text-slate-300">
+                            <x-filament::icon icon="heroicon-m-check-badge" class="w-5 h-5 text-emerald-500" />
+                            <span>20 موظف مبيعات</span>
+                        </li>
+                    </ul>
+                    <a href="/admin/register"
+                        class="w-full py-4 rounded-2xl bg-white/5 text-white font-bold text-center group-hover:bg-emerald-600 group-hover:text-white transition duration-300">تواصل
+                        معنا</a>
                 </div>
             </div>
         </div>

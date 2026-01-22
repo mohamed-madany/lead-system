@@ -15,10 +15,10 @@ class UserSeeder extends Seeder
     {
         // سكرتير النظام (أدمن اللوحة العليا)
         User::firstOrCreate(
-            ['email' => 'admin@leadsystem.com'],
+            ['email' => 'admin@leadsfiy.com'],
             [
                 'name' => 'مدير النظام الرئيسي',
-                'password' => Hash::make('password'),
+                'password' => Hash::make('password123'),
                 'phone' => '01000000001',
                 'role' => 'admin',
                 'is_active' => true,
