@@ -4,7 +4,8 @@ use Illuminate\Support\Facades\Route;
 
 // Public Routes (Arabic Landing Page & Contact Form)
 Route::get('/', function () {
-    return view('home');
+    $plans = \App\Models\Plan::where('is_active', true)->orderBy('price')->get();
+    return view('home', compact('plans'));
 })->name('home');
 
 Route::get('/contact', function () {

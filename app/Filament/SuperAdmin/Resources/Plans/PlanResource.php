@@ -61,9 +61,9 @@ class PlanResource extends Resource
                     ->required()
                     ->numeric()
                     ->default(1),
-                Textarea::make('features')
+                \Filament\Forms\Components\TagsInput::make('features')
                     ->label('المميزات')
-                    ->default(null)
+                    ->placeholder('أضف ميزة جديدة...')
                     ->columnSpanFull(),
                 Toggle::make('is_active')
                     ->label('نشط')
